@@ -9,16 +9,14 @@ import Link
 data Tunel = Tun [Link] deriving (Eq, Show)
 
 newT :: [Link] -> Tunel
-newT l = Tun l
-
-sacar_elemento :: [a] -> a
-sacar_elemento [x] = x
+newT link = Tun link
 
 connectsT :: City -> City -> Tunel -> Bool -- inidca si este tunel conceta estas dos ciudades distintas
-connectsT c1 c2 (Tun lista) = (connectsL c1 (sacar_elemento (take 1 lista))) && (connectsL c2 (sacar_elemento (drop ((length lista) - 1) lista))) || (connectsL c2 (sacar_elemento (take 1 lista))) && (connectsL c1 (sacar_elemento (drop ((length lista) - 1) lista)))
+connectsT city1 city2 (Tun lista) = (position_in_Link city1 (head lista) == 1)  && (position_in_Link city2 (last lista) == 2) ||
+                                    (position_in_Link city2 (head lista) == 1)  && (position_in_Link city1 (last lista) == 2)
 
 usesT :: Link -> Tunel -> Bool  -- indica si este tunel atraviesa ese link
-usesT link (Tun lista) = elem link lista
+usesT (Lin city1 city2 _ ) (Tun lista) = elem True (map (linksL city1 city2) lista)
 
 delayT :: Tunel -> Float -- la demora que sufre una conexion en este tunel
 delayT (Tun lista) = sum (map delayL lista)

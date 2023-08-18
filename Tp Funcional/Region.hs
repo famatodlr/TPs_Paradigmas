@@ -2,20 +2,20 @@ module Region ( Region, newR, foundR, linkR, tunelR, pathR, linksForR, connected
    where
 
 import City
+import Quality
 import Link
 import Tunel
-
 
 data Region = Reg [City] [Link] [Tunel]
 
 newR :: Region
-newR = Reg [] [] []
+newR cities links tunnels = Reg cities links tunnels 
 
 foundR :: Region -> City -> Region -- agrega una nueva ciudad a la región
-
+foundR (Reg cities links tunnels) city = Reg (city:cities) links tunnels
 
 linkR :: Region -> City -> City -> Quality -> Region -- enlaza dos ciudades de la región con un enlace de la calidad indicada
-
+linkR (Reg cities links tunnels) city1 city2 quality = Reg cities ((newL city1 city2 quality):links) tunnels
 
 tunelR :: Region -> [ City ] -> Region -- genera una comunicación entre dos ciudades distintas de la región
 
