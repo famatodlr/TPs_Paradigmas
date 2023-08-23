@@ -4,7 +4,7 @@ import Quality
 import Link
 import Tunel
 
--- import Region
+import Region
 
 p1 = newP 1 1
 p2 = newP 2 2
@@ -27,8 +27,12 @@ l3 = newL c3 c4 q3
 l4 = newL c2 c1 q1
 
 t1 = newT [l1, l2, l3]
+t2 = newT [l1, l2]
+t3 = newT [l1]
+t4 = newT []
 
--- r1 = newR [c1, c2, c3, c4] [l1, l2, l3, l4] [t1]
+r1 = newR [c1, c2, c3, c4] [l1, l2, l3, l4] [t1]
+r2 = newR [] [] []
 
 prueba = [difP p1 p2 == 1.4142135,
           nameC c1 == "c1",
@@ -42,6 +46,12 @@ prueba = [difP p1 p2 == 1.4142135,
           delayL l1 == 1.0,
           connectsT c1 c4 t1,
           connectsT c4 c1 t1,
+          not(connectsT c1 c2 t2),
+          connectsT c1 c2 t3,
+          not(connectsT c1 c2 t4),
           usesT l1 t1,
-          usesT l4 t1,
-          delayT t1 == 6.0]
+          not(usesT l4 t1),
+          delayT t1 == 6.0,
+          foundR r2 c1 == Reg [c1] [] [],
+          linkR r1 c2 c4 q1 == Reg [c1, c2, c3, c4] [l1, l2, l3, l4, newL c2 c4 q1] [t1]
+          tunnelR r1 [c2, c4] == Reg [c1, c2, c3, c4] [l1, l2, l3, l4, newL c2 c4 q1] [t1, newT [newL c2 c4 q1]]
