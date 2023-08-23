@@ -18,11 +18,6 @@ connectsT city1 city2 (Tun lista) = ((connectsL city1 (head (take 2 lista)) && n
                                     (connectsL city1 (last (drop (length lista - 2) lista)) && not (connectsL city1 (head (drop (length lista - 2) lista)))))
 
 
-
-
-equalLink :: Link -> Link
-equalLink (Link city1 city2 quality) = Link city2 city1 quality
-
 usesT :: Link -> Tunel -> Bool -- indica si este tunel atraviesa ese link
 usesT link (Tun []) = False
 usesT link (Tun links) = link `elem` links
