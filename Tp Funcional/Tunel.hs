@@ -17,6 +17,7 @@ esPrimero ciudad lista | length lista > 1 = connectsL ciudad (head (take 2 lista
                        | otherwise = False
 
 esUltimo :: City -> [Link] -> Bool
+esUltimo ciudad lista | length lista > 1 = connectsL ciudad (last (drop (length lista - 2) lista)) && not (connectsL ciudad (head (drop (length lista - 2) lista)))
                       | length lista == 1 = connectsL ciudad (last lista)
                       | otherwise = False
 

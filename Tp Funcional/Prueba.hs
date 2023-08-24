@@ -3,7 +3,6 @@ import City
 import Quality
 import Link
 import Tunel
-
 import Region
 
 p1 = newP 1 1
@@ -31,8 +30,8 @@ t2 = newT [l1, l2]
 t3 = newT [l1]
 t4 = newT []
 
-r1 = newR [c1, c2, c3, c4] [l1, l2, l3, l4] [t1]
-r2 = newR [] [] []
+r1 = newR 
+r2 = newR 
 
 prueba = [difP p1 p2 == 1.4142135,
           nameC c1 == "c1",
@@ -52,6 +51,8 @@ prueba = [difP p1 p2 == 1.4142135,
           usesT l1 t1,
           not(usesT l4 t1),
           delayT t1 == 6.0,
-          foundR r2 c1 == Reg [c1] [] [],
-          linkR r1 c2 c4 q1 == Reg [c1, c2, c3, c4] [l1, l2, l3, l4, newL c2 c4 q1] [t1]
-          tunnelR r1 [c2, c4] == Reg [c1, c2, c3, c4] [l1, l2, l3, l4, newL c2 c4 q1] [t1, newT [newL c2 c4 q1]]
+          foundR r1 c1 == Reg [c1] [] [],
+          foundR (foundR r1 c1) c1 == Reg [c1] [] []]
+
+state prueba | and prueba = "Correcto"
+             | otherwise = "Incorrecto"
