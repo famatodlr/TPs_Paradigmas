@@ -16,30 +16,49 @@ foundR (Reg cities links tunnels) city | not (elem city cities) =  Reg (cities +
                                        | otherwise = Reg cities links tunnels
 
 linkR :: Region -> City -> City -> Quality -> Region -- enlaza dos ciudades de la región con un enlace de la calidad indicada
-linkR (Reg cities links tunnels) city1 city2 quality = Reg cities (links ++ [newL city1 city2 quality]) tunnels
+linkR (Reg cities links tunnels) city1 city2 quality | elem city1 cities && elem city2 cities = if not (elem (newL city1 city2 quality) links) 
+                                                                                                then Reg cities (links ++ [newL city1 city2 quality]) tunnels
+                                                                                                else Reg cities links tunnels
+                                                     | otherwise = Reg cities links tunnels
 
 chequeoConectividad :: [Link] -> [City] -> [Link]
-chequeoConectividad links (city:ciudades) = [y | y <- links, connectsL city1 y && connectsL city2 y] ++ chequeoConectividad links ciudades
+chequeoConectividad links [] = []
+chequeoConectividad links (city:ciudades) | ciudades /= [] = [y | y <- links, connectsL city1 y && connectsL city2 y] ++ chequeoConectividad links ciudades
+                                          | otherwise = []
    where city1 = city
          city2 = head ciudades
 
 tunelR :: Region -> [ City ] -> Region -- genera una comunicación entre dos ciudades distintas de la región
-tunelR (Reg cities links tunnels) ciudades = Reg cities links (tunnels ++ [newT (chequeoConectividad links ciudades)])
+tunelR (Reg cities links tunnels) ciudades | not (any (connectsT city1 city2) tunnels) = Reg cities links (tunnels ++ [nuevoTunel])
+                                           | otherwise = Reg cities links tunnels
+   where nuevoTunel = newT (chequeoConectividad links ciudades) 
+         city1 = head ciudades
+         city2 = last ciudades
 
 connectedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades estan conectadas por un tunel
-connectedR (Reg cities links tunnels) city1 city2 = all (connectsT city1 city2) tunnels
+connectedR (Reg cities links tunnels) city1 city2 = any (connectsT city1 city2) tunnels
 
 linkedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades estan enlazadas
-linkedR (Reg cities links tunnels) city1 city2 = all (linksL city1 city2) links
+linkedR (Reg cities links tunnels) city1 city2 = any (linksL city1 city2) links
 
 buscarTunel :: [Tunel] -> City -> City -> Tunel
-buscarTunel (tunel:tuneles) city1 city2 = if connectsT city1 city2 tunel then tunel else buscarTunel tuneles city1 city2
+buscarTunel (tunel:tuneles) city1 city2 | connectsT city1 city2 tunel = tunel 
+                                        | otherwise =  buscarTunel tuneles city1 city2
 
 delayR :: Region -> City -> City -> Float -- dadas dos ciudades conectadas, indica la demora
 delayR (Reg cities links tunnels) city1 city2 = delayT (buscarTunel tunnels city1 city2)
 
 buscarLink :: [Link] -> City -> City -> Link
-buscarLink (link:links) city1 city2 = if linksL city1 city2 link then link else buscarLink links city1 city2
+buscarLink (link:links) city1 city2 | linksL city1 city2 link = link 
+                                    | otherwise = buscarLink links city1 city2
+
+buscarLinkEnTuneles :: Link -> [Tunel] -> [Bool]
+buscarLinkEnTuneles link [] = []
+buscarLinkEnTuneles link (tunel:tuneles) = [usesT link tunel] ++ buscarLinkEnTuneles link tuneles
+
+contarTrues :: [Bool] -> Int
+contarTrues lista = sum [1 | y <- lista, True]
 
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
-availableCapacityForR (Reg cities links tunnels) city1 city2 = capacityL (buscarLink links city1 city2)
+availableCapacityForR (Reg cities links tunnels) city1 city2 = capacityL link - contarTrues (buscarLinkEnTuneles link tunnels)
+   where link = buscarLink links city1 city2
