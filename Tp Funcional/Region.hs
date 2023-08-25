@@ -51,13 +51,13 @@ delayR (Reg cities links tunnels) city1 city2 = delayT (buscarTunel tunnels city
 buscarLink :: [Link] -> City -> City -> Link
 buscarLink (link:links) city1 city2 | linksL city1 city2 link = link 
                                     | otherwise = buscarLink links city1 city2
-
+                                    
 buscarLinkEnTuneles :: Link -> [Tunel] -> [Bool]
 buscarLinkEnTuneles link [] = []
 buscarLinkEnTuneles link (tunel:tuneles) = [usesT link tunel] ++ buscarLinkEnTuneles link tuneles
 
 contarTrues :: [Bool] -> Int
-contarTrues lista = sum [1 | y <- lista, True]
+contarTrues lista = sum [1 | y <- lista]
 
 availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad disponible entre dos ciudades
 availableCapacityForR (Reg cities links tunnels) city1 city2 = capacityL link - contarTrues (buscarLinkEnTuneles link tunnels)
