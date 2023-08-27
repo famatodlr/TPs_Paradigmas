@@ -9,11 +9,14 @@ p1 = newP 1 1
 p2 = newP 2 2
 p3 = newP 3 3
 p4 = newP 4 4
+p5 = newP 5 5
 
 c1 = newC "c1" p1
 c2 = newC "c2" p2
 c3 = newC "c3" p3
 c4 = newC "c4" p4
+c5 = newC "c5" p5
+c6 = newC "c6" p1
 
 q1 = newQ "q1" 2 1.0
 q2 = newQ "q2" 2 2.0
@@ -45,7 +48,7 @@ prueba = [difP p1 p2 == 1.4142135,
           connectsL c2 l1,
           linksL c1 c2 l1,
           capacityL l1 == 2,
-          delayL l1 == 1.0,
+          delayL l1 == 1.4142135,
           connectsT c1 c4 t1,
           connectsT c4 c1 t1,
           not(connectsT c1 c2 t2),
@@ -53,7 +56,7 @@ prueba = [difP p1 p2 == 1.4142135,
           not(connectsT c1 c2 t4),
           usesT l1 t1,
           not(usesT l4 t1),
-          delayT t1 == 6.0,
+          delayT t1 == 2.5927248,
           foundR r2 c1 == Reg [c1] [] [],
           foundR (foundR r2 c1) c1 == Reg [c1] [] [],
           linkR (Reg [c1,c2] [] []) c1 c2 q1 == Reg [c1,c2] [l1] [],
@@ -65,10 +68,12 @@ prueba = [difP p1 p2 == 1.4142135,
           not (connectedR r1 c1 c3),
           linkedR r1 c1 c2,
           not (linkedR r1 c1 c4),
-          delayR r1 c1 c4 == 6.0,
+          delayR r1 c1 c4 == 2.5927248,
           availableCapacityForR r1 c1 c2 == 1,
           availableCapacityForR r1 c2 c3 == 1,
-          availableCapacityForR r3 c1 c2 == 0]
+          availableCapacityForR r3 c1 c2 == 0,
+          foundR r1 c6 == r1,
+          not (linkedR r1 c1 c5)]
 
 state prueba | and prueba = "Correcto"
              | otherwise = "Incorrecto"
