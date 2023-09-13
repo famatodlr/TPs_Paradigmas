@@ -6,6 +6,7 @@ public class Queue {
 	
   public static String emptyQueue = "Queue is empty"; 
   public LinkedList<Object> queueList = new LinkedList<>();
+  
   private TypesOfQueues type = new EmptyQueue();
   public TypesOfQueues previousType = new EmptyQueue();
 
@@ -15,14 +16,17 @@ public class Queue {
 
 	public Queue add( String  element ) {
 		queueList.addLast( element );
+		
 		previousType = type;
 		type = type.update();
+		
 		return this;
 	}
 
 	public Object take() {
+		Object element = type.take(queueList);
 		type = previousType;
-		return type.take(queueList);
+		return element;
 	}
 
 	public Object head() {return type.head(queueList);}
