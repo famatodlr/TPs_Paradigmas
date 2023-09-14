@@ -30,7 +30,6 @@ public class Queue {
 	}
 
 	public Object head() {return type.head(queueList);}
-
 	public int size() {return queueList.size();}
 
 }
