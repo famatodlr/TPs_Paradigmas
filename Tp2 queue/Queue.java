@@ -7,8 +7,8 @@ public class Queue {
   public static String emptyQueue = "Queue is empty"; 
   public LinkedList<Object> queueList = new LinkedList<>();
   
-  private TypesOfQueues type = new EmptyQueue();
-  public TypesOfQueues previousType = new EmptyQueue();
+  private TypesOfQueues status = new EmptyQueue();
+  public TypesOfQueues previousStatus = new EmptyQueue();
 
   public boolean isEmpty() {
 	  return queueList.isEmpty();
@@ -17,19 +17,19 @@ public class Queue {
 	public Queue add( String  element ) {
 		queueList.addLast( element );
 		
-		previousType = type;
-		type = type.update();
+		previousStatus = status;
+		status = new QueueWithSomething();
 		
 		return this;
 	}
 
 	public Object take() {
-		Object element = type.take(queueList);
-		type = previousType;
+		Object element = status.take(queueList);
+		status = previousStatus;
 		return element;
 	}
 
-	public Object head() {return type.head(queueList);}
+	public Object head() {return status.head(queueList);}
 	public int size() {return queueList.size();}
 
 }
