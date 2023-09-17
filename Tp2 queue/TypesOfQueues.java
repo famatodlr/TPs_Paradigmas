@@ -6,8 +6,5 @@ public abstract class TypesOfQueues {
 
 	public abstract Object take(LinkedList queueList) ;
 	public abstract Object head(LinkedList queueList) ;
-	
-	public TypesOfQueues bringPrevious( TypesOfQueues previous) {
-		return previous;
 	};
 }
