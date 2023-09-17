@@ -11,5 +11,4 @@ public class QueueWithSomething extends TypesOfQueues {
 	public Object head( LinkedList queueList ) {
 		return queueList.getFirst();
 	}
-
 }
