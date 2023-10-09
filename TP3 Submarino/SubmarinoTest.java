@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class submarinoTest {
+public class SubmarinoTest {
 	
 	@Test public void test00() {
 		// Esta en la superficie?
@@ -16,9 +16,7 @@ public class submarinoTest {
 		Submarine nemo = new Submarine();
 		
 		assertTrue(nemo.isAtSurface());
-		
 		assertEquals( Submarine.initialPosition, nemo.coordenada);
-		
 		assertEquals( Submarine.initialDirection, nemo.direccion);
 	}
 	
@@ -30,7 +28,7 @@ public class submarinoTest {
 		assertTrue(nemo.isAtSurface());
 		assertEquals( Submarine.initialPosition, nemo.coordenada);
 		
-		nemo.instructions("");
+		nemo.instructions(' ');
 		
 		assertTrue(nemo.isAtSurface());
 		assertEquals( Submarine.initialPosition, nemo.coordenada);
@@ -43,7 +41,7 @@ public class submarinoTest {
 		
 		assertTrue(nemo.isAtSurface());
 		
-		nemo.instructions("d");
+		nemo.instructions('d');
 		
 		assertFalse(nemo.isAtSurface());
 		assertEquals( 1 , nemo.profundidad);
@@ -56,7 +54,7 @@ public class submarinoTest {
 		
 		assertTrue(nemo.isAtSurface());
 		
-		nemo.instructions("u");
+		nemo.instructions('u');
 		
 		assertTrue(nemo.isAtSurface());
 	}
@@ -66,12 +64,12 @@ public class submarinoTest {
 		
 		Submarine nemo = new Submarine();
 		
-		nemo.instructions("d");
+		nemo.instructions('d');
 		
 		assertFalse(nemo.isAtSurface());
 		assertEquals( 1 , nemo.profundidad);
 		
-		nemo.instructions("u");
+		nemo.instructions('u');
 		
 		assertTrue(nemo.isAtSurface());
 	}
@@ -83,9 +81,64 @@ public class submarinoTest {
 		
 		assertEquals( Submarine.initialDirection, nemo.direccion);
 		
-		nemo.instructions("l");
+		nemo.instructions('l');
 		
 		assertEquals( "Este", nemo.direccion);
 	}
 
+	@Test public void test06() {
+		// Testear pasarle 'r' y que gire a la derecha
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( Submarine.initialDirection, nemo.direccion);
+
+		nemo.instructions('r');
+
+		assertEquals( "Oeste", nemo.direccion);
+	}
+
+	@Test public void test07() {
+		// Testear pasarle 'f' y que avance una unidad
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( Submarine.initialPosition, nemo.coordenada);
+
+		nemo.instructions('f');
+
+		assertEquals(0, nemo.coordenada.x);
+		assertEquals(1, nemo.coordenada.y);
+	}
+//
+//	@Test public void test08(){
+//		// Testear pasarle "ffrff" y que avance dos unidades y gire a la derecha
+//
+//		Submarine nemo = new Submarine();
+//
+//		assertEquals( Submarine.initialPosition, nemo.coordenada);
+//
+//		nemo.instructions('f');
+//		nemo.instructions('f');
+//		nemo.instructions('r');
+//		nemo.instructions('f');
+//		nemo.instructions('f');
+//
+//		assertEquals(2, nemo.coordenada.x);
+//		assertEquals(2, nemo.coordenada.y);
+//		assertEquals( "Este", nemo.direccion);
+//
+//
+//	}
+
+//	@Test public void test09() {
+//		// Testear pasarle 'm' y que lance una capsula
+//
+//		Submarine nemo = new Submarine();
+//
+//		assertEquals( 1, nemo.capsulas);
+//		nemo.instructions('m');
+//		assertEquals( 0, nemo.capsulas);
+//	}
+//
 }
