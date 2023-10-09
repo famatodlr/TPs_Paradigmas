@@ -11,8 +11,4 @@ public class Coordenate{
 		this.y = y;
 
 	}
-
-	//necesito que cuando avance en alguna direccion me devuelva la coordenada nueva
-
-	
 }

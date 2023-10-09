@@ -1,10 +1,8 @@
 package submarino;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class SubmarinoTest {
 	
@@ -83,7 +81,7 @@ public class SubmarinoTest {
 		
 		nemo.instructions('l');
 		
-		assertEquals( "Este", nemo.direccion);
+		assertEquals( "Oeste", nemo.direccion);
 	}
 
 	@Test public void test06() {
@@ -95,7 +93,7 @@ public class SubmarinoTest {
 
 		nemo.instructions('r');
 
-		assertEquals( "Oeste", nemo.direccion);
+		assertEquals( "Este", nemo.direccion);
 	}
 
 	@Test public void test07() {
@@ -110,35 +108,98 @@ public class SubmarinoTest {
 		assertEquals(0, nemo.coordenada.x);
 		assertEquals(1, nemo.coordenada.y);
 	}
-//
-//	@Test public void test08(){
-//		// Testear pasarle "ffrff" y que avance dos unidades y gire a la derecha
+
+	@Test public void test08(){
+		// Testear pasarle una instruccion de direccion y de movimiento
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( Submarine.initialPosition, nemo.coordenada);
+
+		nemo.multipleInstructions("fff");
+
+		assertEquals(0, nemo.coordenada.x);
+		assertEquals(3, nemo.coordenada.y);
+	}
+
+	@Test public void test09(){
+		// Testear pasarle una instruccion de direccion y de movimiento
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( Submarine.initialPosition, nemo.coordenada);
+
+		nemo.multipleInstructions("ffrff");
+
+		assertEquals(2, nemo.coordenada.x);
+		assertEquals(2, nemo.coordenada.y);
+		assertEquals( "Este", nemo.direccion);
+	}
+
+	@Test public void test10(){
+		// Testear pasarle una instruccion de direccion y de movimiento mas compleja
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( Submarine.initialPosition, nemo.coordenada);
+
+		nemo.multipleInstructions("ffrfflff");
+
+		assertEquals(2, nemo.coordenada.x);
+		assertEquals(4, nemo.coordenada.y);
+		assertEquals( "Norte", nemo.direccion);
+
+	}
+
+	@Test public void test11(){
+		// Testear mezcla de instrucciones de direccion, movimiento y profundidad
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( Submarine.initialPosition, nemo.coordenada);
+
+		nemo.multipleInstructions("ffrfflffdd");
+
+		assertEquals(2, nemo.coordenada.x);
+		assertEquals(4, nemo.coordenada.y);
+		assertEquals( "Norte", nemo.direccion);
+		assertEquals( 2, nemo.profundidad);
+
+	}
+
+	@Test public void test12() {
+		// Testear pasarle 'm' y que lance una capsula
+
+		Submarine nemo = new Submarine();
+
+		assertEquals( 1, nemo.capsulas);
+		nemo.instructions('m');
+		assertEquals( 0, nemo.capsulas);
+	}
+
+//	@Test public void test13(){
+//		// Testear el error si se intenta tirar una capsula a mas de 1 de profundidad
 //
 //		Submarine nemo = new Submarine();
 //
-//		assertEquals( Submarine.initialPosition, nemo.coordenada);
-//
-//		nemo.instructions('f');
-//		nemo.instructions('f');
-//		nemo.instructions('r');
-//		nemo.instructions('f');
-//		nemo.instructions('f');
-//
-//		assertEquals(2, nemo.coordenada.x);
-//		assertEquals(2, nemo.coordenada.y);
-//		assertEquals( "Este", nemo.direccion);
-//
-//
+//		assertEquals( 1, nemo.capsulas);
+//		nemo.multipleInstructions("dd");
+//		assertEquals( 2, nemo.profundidad);
+//		nemo.instructions('m');
+////		ESCRIBIR EL ASSERT DEL ERROR
 //	}
 
-//	@Test public void test09() {
-//		// Testear pasarle 'm' y que lance una capsula
+//	@Test public void test14(){
+//		CHEQUEAR
+//		// Testear que no se puede lanzar una capsula si no hay
 //
 //		Submarine nemo = new Submarine();
 //
 //		assertEquals( 1, nemo.capsulas);
 //		nemo.instructions('m');
 //		assertEquals( 0, nemo.capsulas);
-//	}
 //
+//	}
+
+
 }
