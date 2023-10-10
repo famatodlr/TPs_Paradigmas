@@ -88,14 +88,13 @@ public class Submarine {
 	}
 
 	public void capsuleDrop( Character instruction ) {
-		if (instruction == 'm') {
-			if (isAtSurface() || profundidad == 1) {
-				if (capsulas == 0) {
-					throw new IllegalArgumentException("No hay mas capsulas");
-                }
-				capsulas -= 1;
+		if (isAtSurface() || profundidad == 1) {
+			if (capsulas == 0) {
+				throw new IllegalArgumentException("No hay mas capsulas");
 			}
+			capsulas -= 1;
 		}
+
 		else {
 			throw new IllegalArgumentException("El submarino exploto por causa del chocolate");
 		}

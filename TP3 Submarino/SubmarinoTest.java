@@ -110,7 +110,7 @@ public class SubmarinoTest {
 	}
 
 	@Test public void test08(){
-		// Testear pasarle una instruccion de direccion y de movimiento
+		// Testear pasarle multiples instrucciones de movimiento
 
 		Submarine nemo = new Submarine();
 
@@ -158,7 +158,7 @@ public class SubmarinoTest {
 
 		assertEquals( Submarine.initialPosition, nemo.coordenada);
 
-		nemo.multipleInstructions("ffrfflffdd");
+		nemo.multipleInstructions("ufdfurffdlffd");
 
 		assertEquals(2, nemo.coordenada.x);
 		assertEquals(4, nemo.coordenada.y);
