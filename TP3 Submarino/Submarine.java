@@ -3,6 +3,9 @@ public class Submarine {
 
 	public static Coordenate initialPosition = new Coordenate( 0,0 );
 	public static String initialDirection = "Norte";
+	
+	public static String excessOfChocolate = "El submarino exploto por exceso de chocolate";
+	public static String noMoreCapsules = "No hay mas capsulas";
 
 	public Coordenate coordenada = initialPosition;
 	public int profundidad = 0;
@@ -77,7 +80,7 @@ public class Submarine {
 			}
 		}
 		if (instruction == 'm') {
-			capsuleDrop(instruction);
+			capsuleDrop();
 		}
 	}
 
@@ -87,16 +90,16 @@ public class Submarine {
 		}
 	}
 
-	public void capsuleDrop( Character instruction ) {
+	public void capsuleDrop() {
 		if (isAtSurface() || profundidad == 1) {
 			if (capsulas == 0) {
-				throw new IllegalArgumentException("No hay mas capsulas");
+				throw new RuntimeException(noMoreCapsules);
 			}
-			capsulas -= 1;
+			capsulas --;
 		}
 
 		else {
-			throw new IllegalArgumentException("El submarino exploto por causa del chocolate");
+			throw new RuntimeException(excessOfChocolate);
 		}
 	}
 }
