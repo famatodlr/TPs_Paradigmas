@@ -11,4 +11,20 @@ public class Coordenate{
 		this.y = y;
 
 	}
+
+	public Coordenate left() {
+		return new Coordenate( x - 1, y);
+	}
+
+	public Coordenate right() {
+		return new Coordenate( x + 1, y);
+	}
+
+	public Coordenate up() {
+		return new Coordenate( x, y + 1);
+	}
+
+	public Coordenate down() {
+		return new Coordenate( x, y - 1);
+	}
 }
