@@ -1,9 +1,10 @@
-package submarino.Directions;
+package directions;
 
 import submarino.Coordenate;
 
-public class West extends Directions{
-    public Directions turnRight() {
+public class West extends Directions {
+
+	public Directions turnRight() {
         return new North();
     }
 
@@ -14,4 +15,5 @@ public class West extends Directions{
     public Coordenate goForward(Coordenate coordenada) {
         return coordenada.left();
     }
+
 }
