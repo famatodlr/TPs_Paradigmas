@@ -3,6 +3,9 @@ public class Submarine {
 
 	public static Coordenate initialPosition = new Coordenate( 0,0 );
 	public static String initialDirection = "Norte";
+	
+	public static String excessOfChocolate = "El submarino exploto por exceso de chocolate";
+	public static String noMoreCapsules = "No hay mas capsulas";
 
 	public Coordenate coordenada = initialPosition;
 	public int profundidad = 0;
@@ -20,14 +23,12 @@ public class Submarine {
 		if (instruction == 'd') {
 			profundidad += 1;
 		}
-		
 		if (instruction == 'u') {
 			if (profundidad > 0) {
 				profundidad -=1;
 			}
 		}
-		
-		if (instruction == 'l') {
+		if (instruction == 'r') {
 			if (direccion == "Norte") {
 				direccion = "Este";
 			}
@@ -44,8 +45,7 @@ public class Submarine {
 				direccion = "Norte";
 			}
 		}
-
-		if (instruction == 'r') {
+		if (instruction == 'l') {
 			if (direccion == "Norte") {
 				direccion = "Oeste";
 			}
@@ -67,17 +67,20 @@ public class Submarine {
 				coordenada = new Coordenate(coordenada.x, coordenada.y + 1);
 			}
 
-			else if (direccion == "Oeste") {
-				coordenada = new Coordenate(coordenada.x - 1, coordenada.y);
+			else if (direccion == "Este") {
+				coordenada = new Coordenate(coordenada.x + 1, coordenada.y);
 			}
 
 			else if (direccion == "Sur") {
 				coordenada = new Coordenate(coordenada.x, coordenada.y - 1);
 			}
 
-			else if (direccion == "Este") {
-				coordenada = new Coordenate(coordenada.x + 1, coordenada.y);
+			else if (direccion == "Oeste") {
+				coordenada = new Coordenate(coordenada.x - 1, coordenada.y);
 			}
+		}
+		if (instruction == 'm') {
+			capsuleDrop();
 		}
 	}
 
@@ -87,11 +90,16 @@ public class Submarine {
 		}
 	}
 
-	public void capsuleDrop( Character instruction ) {
-		if (instruction == 'm') {
-			if (isAtSurface() || profundidad == 1) {
-				capsulas -= 1;
+	public void capsuleDrop() {
+		if (isAtSurface() || profundidad == 1) {
+			if (capsulas == 0) {
+				throw new RuntimeException(noMoreCapsules);
 			}
+			capsulas --;
+		}
+
+		else {
+			throw new RuntimeException(excessOfChocolate);
 		}
 	}
 }
