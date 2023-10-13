@@ -2,6 +2,9 @@ package submarino;
 
 import org.junit.Test;
 
+import directions.Directions;
+import gps.Coordenate;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,8 +21,8 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine();
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
-		assertEquals( Submarine.initialDirection, nemo.direccion);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
+		assertEquals( Directions.initialDirection, nemo.direccion);
 	}
 	
 	@Test public void nemoDontReactToEmptyInstructions() {
@@ -28,18 +31,18 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine();
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
 		assertEquals( 1 , nemo.capsulas);
 		
 		nemo.instructions(' ');
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
 		assertEquals( 1 , nemo.capsulas);
 	}
 	
 	@Test public void nemoCanGoDown() {
-		//Testear pasarle 'd'
+		//TEastar pasarle 'd'
 		
 		Submarine nemo = new Submarine();
 		
@@ -52,7 +55,7 @@ public class SubmarinoTest {
 	}
 	
 	@Test public void nemoDontReactIfGoesUpInSurface() {
-		// Testear pasarle 'u' en la superficie y que se quede ahi
+		// TEastar pasarle 'u' en la superficie y que se quede ahi
 		
 		Submarine nemo = new Submarine();
 		
@@ -64,7 +67,7 @@ public class SubmarinoTest {
 	}
 	
 	@Test public void nemoCanGoUp(){
-		// Testear pasarle 'u' bajo la superficie y que suba (u es opuesto a d)
+		// TEastar pasarle 'u' bajo la superficie y que suba (u es opuesto a d)
 		
 		Submarine nemo = new Submarine();
 		
@@ -80,15 +83,15 @@ public class SubmarinoTest {
 	
 	
 	@Test public void canRotateToLeft() {
-		// Testear pasarle 'l' y que gire a la izquierda
+		// TEastar pasarle 'l' y que gire a la izquierda
 		
 		Submarine nemo = new Submarine();
 		
-		assertEquals( Submarine.initialDirection, nemo.direccion);
+		assertEquals( Directions.initialDirection, nemo.direccion);
 		
 		nemo.instructions('l');
 		
-		assertEquals( "Oeste", nemo.direccion);
+		assertEquals( "West", nemo.direccion.str());
 	}
 	
 	@Test public void canDoACompleteTurnAnticlockwise() {
@@ -96,23 +99,23 @@ public class SubmarinoTest {
 		
 		Submarine nemo = new Submarine();
 		
-		assertEquals( Submarine.initialDirection, nemo.direccion);
+		assertEquals( Directions.initialDirection, nemo.direccion);
 		
 		nemo.multipleInstructions("llll");
 		
-		assertEquals( "Norte", nemo.direccion);
+		assertEquals( "North", nemo.direccion.str());
 	}
 
 	@Test public void canRotateToRight() {
-		// Testear pasarle 'r' y que gire a la derecha
+		// TEastar pasarle 'r' y que gire a la derecha
 
 		Submarine nemo = new Submarine();
 
-		assertEquals( Submarine.initialDirection, nemo.direccion);
+		assertEquals( Directions.initialDirection, nemo.direccion);
 
 		nemo.instructions('r');
 
-		assertEquals( "Este", nemo.direccion);
+		assertEquals( "East", nemo.direccion.str());
 	}
 	
 	@Test public void canDoACompleteTurnClockwise() {
@@ -120,11 +123,11 @@ public class SubmarinoTest {
 		
 		Submarine nemo = new Submarine();
 		
-		assertEquals( Submarine.initialDirection, nemo.direccion);
+		assertEquals( Directions.initialDirection, nemo.direccion);
 		
 		nemo.multipleInstructions("rrrr");
 		
-		assertEquals( "Norte", nemo.direccion);
+		assertEquals( "North", nemo.direccion.str());
 	}
 	
 	@Test public void rightOppositeToLeft() {
@@ -132,20 +135,20 @@ public class SubmarinoTest {
 		
 		Submarine nemo = new Submarine();
 		
-		assertEquals( Submarine.initialDirection, nemo.direccion);
+		assertEquals( Directions.initialDirection, nemo.direccion);
 		
 		nemo.instructions('r');
 		nemo.instructions('l');
 		
-		assertEquals( "Norte", nemo.direccion);
+		assertEquals( "North", nemo.direccion.str());
 	}
 
 	@Test public void nemoCanGoFoward() {
-		// Testear pasarle 'f' y que avance una unidad en la direccion adecuada
+		// TEastar pasarle 'f' y que avance una unidad en la direccion adecuada
 
 		Submarine nemo = new Submarine();
 
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
 
 		nemo.instructions('f');
 
@@ -154,11 +157,11 @@ public class SubmarinoTest {
 	}
 
 	@Test public void canGoFowardManyTimes(){
-		// Testear pasarle multiples instrucciones de movimiento
+		// TEastar pasarle multiples instrucciones de movimiento
 
 		Submarine nemo = new Submarine();
 
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
 
 		nemo.multipleInstructions("fff");
 
@@ -167,37 +170,37 @@ public class SubmarinoTest {
 	}
 
 	@Test public void CanGOFowardAndRotate(){
-		// Testear pasarle una instruccion de direccion y de movimiento
+		// TEastar pasarle una instruccion de direccion y de movimiento
 
 		Submarine nemo = new Submarine();
 
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
 
 		nemo.multipleInstructions("ffrff");
 
 		assertEquals(2, nemo.coordenada.x);
 		assertEquals(2, nemo.coordenada.y);
-		assertEquals( "Este", nemo.direccion);
+		assertEquals( "East", nemo.direccion.str());
 	}
 
 	@Test public void canRecieveComplexInstructions(){
-		// Testear mezcla de instrucciones de direccion, movimiento y profundidad
+		// TEastar mezcla de instrucciones de direccion, movimiento y profundidad
 
 		Submarine nemo = new Submarine();
 
-		assertEquals( Submarine.initialPosition, nemo.coordenada);
+		assertEquals( Coordenate.initialPosition, nemo.coordenada);
 
 		nemo.multipleInstructions("ufdfurffdlffd");
 
 		assertEquals(2, nemo.coordenada.x);
 		assertEquals(4, nemo.coordenada.y);
-		assertEquals( "Norte", nemo.direccion);
+		assertEquals( "North", nemo.direccion.str());
 		assertEquals( 2, nemo.profundidad);
 
 	}
 
 	@Test public void nemoCanThrowCapsule() {
-		// Testear pasarle 'm' y que lance una capsula
+		// TEastar pasarle 'm' y que lance una capsula
 
 		Submarine nemo = new Submarine();
 
@@ -207,7 +210,7 @@ public class SubmarinoTest {
 	}
 
 	@Test public void cantThrowCapsuleTooDeep(){
-		// Testear el error si se intenta tirar una capsula a mas de 1 de profundidad
+		// TEastar el error si se intenta tirar una capsula a mas de 1 de profundidad
 
 		Submarine nemo = new Submarine();
 
@@ -220,7 +223,7 @@ public class SubmarinoTest {
 	}
 
 	@Test public void cantThrowManyCapsules(){
-		// Testear que no se puede lanzar una capsula si no hay
+		// TEastar que no se puede lanzar una capsula si no hay
 
 		Submarine nemo = new Submarine();
 
