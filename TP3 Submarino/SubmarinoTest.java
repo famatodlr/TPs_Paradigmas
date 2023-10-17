@@ -71,7 +71,7 @@ public class SubmarinoTest {
 		nemo.instructions('d');
 		
 		assertFalse(nemo.isAtSurface());
-		assertEquals( 1 , nemo.profundidad);
+		assertEquals( 1 , nemo.getNivel());
 		
 		nemo.instructions('u');
 		

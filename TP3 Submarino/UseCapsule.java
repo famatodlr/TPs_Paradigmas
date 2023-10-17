@@ -1,8 +1,7 @@
 package submarino;
 public class UseCapsule extends Instructions {
 
-    public static String excessOfChocolate = "El submarino exploto por exceso de chocolate";
-    public static String noMoreCapsules = "No hay mas capsulas";
+    public void doInstruction(Profundidades profundidad){}
 
 
 //    public void doInstruction(int profundidad, int capsulas) {
