@@ -1,6 +1,5 @@
-package directions;
+package submarino;
 
-import gps.Coordenate;
 
 public class North extends Directions {
 

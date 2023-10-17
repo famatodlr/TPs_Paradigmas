@@ -1,5 +1,4 @@
-package directions;
-import gps.Coordenate;
+package submarino;
 
 public abstract class Directions {
 

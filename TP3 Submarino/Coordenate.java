@@ -1,4 +1,4 @@
-package gps;
+package submarino;
 
 public class Coordenate{
 	public int x;

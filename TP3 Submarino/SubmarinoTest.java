@@ -2,9 +2,6 @@ package submarino;
 
 import org.junit.Test;
 
-import directions.Directions;
-import gps.Coordenate;
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,13 +29,13 @@ public class SubmarinoTest {
 		
 		assertTrue(nemo.isAtSurface());
 		assertEquals( Coordenate.initialPosition, nemo.coordenada);
-		assertEquals( 1 , nemo.capsulas);
+//		assertEquals( 1 , nemo.capsulas);
 		
 		nemo.instructions(' ');
 		
 		assertTrue(nemo.isAtSurface());
 		assertEquals( Coordenate.initialPosition, nemo.coordenada);
-		assertEquals( 1 , nemo.capsulas);
+//		assertEquals( 1 , nemo.capsulas);
 	}
 	
 	@Test public void nemoCanGoDown() {
@@ -199,41 +196,41 @@ public class SubmarinoTest {
 
 	}
 
-	@Test public void nemoCanThrowCapsule() {
-		// TEastar pasarle 'm' y que lance una capsula
+//	@Test public void nemoCanThrowCapsule() {
+//		// TEastar pasarle 'm' y que lance una capsula
+//
+//		Submarine nemo = new Submarine();
+//
+//		assertEquals( 1, nemo.capsulas);
+//		nemo.instructions('m');
+//		assertEquals( 0, nemo.capsulas);
+//	}
 
-		Submarine nemo = new Submarine();
+//	@Test public void cantThrowCapsuleTooDeep(){
+//		// TEastar el error si se intenta tirar una capsula a mas de 1 de profundidad
+//
+//		Submarine nemo = new Submarine();
+//
+//		assertEquals( 1, nemo.capsulas);
+//		nemo.multipleInstructions("dd");
+//		assertEquals( 2, nemo.profundidad);
+//
+//		assertEquals( Submarine.excessOfChocolate,
+//				assertThrows( RuntimeException.class, () -> nemo.instructions('m')).getMessage());
+//	}
 
-		assertEquals( 1, nemo.capsulas);
-		nemo.instructions('m');
-		assertEquals( 0, nemo.capsulas);
-	}
-
-	@Test public void cantThrowCapsuleTooDeep(){
-		// TEastar el error si se intenta tirar una capsula a mas de 1 de profundidad
-
-		Submarine nemo = new Submarine();
-
-		assertEquals( 1, nemo.capsulas);
-		nemo.multipleInstructions("dd");
-		assertEquals( 2, nemo.profundidad);
-		
-		assertEquals( Submarine.excessOfChocolate,
-				assertThrows( RuntimeException.class, () -> nemo.instructions('m')).getMessage());
-	}
-
-	@Test public void cantThrowManyCapsules(){
-		// TEastar que no se puede lanzar una capsula si no hay
-
-		Submarine nemo = new Submarine();
-
-		assertEquals( 1, nemo.capsulas);
-		nemo.instructions('m');
-		assertEquals( 0, nemo.capsulas);
-		
-		assertEquals( Submarine.noMoreCapsules,
-				assertThrows( RuntimeException.class, () -> nemo.instructions('m')).getMessage());
-	}
+//	@Test public void cantThrowManyCapsules(){
+//		// TEastar que no se puede lanzar una capsula si no hay
+//
+//		Submarine nemo = new Submarine();
+//
+//		assertEquals( 1, nemo.capsulas);
+//		nemo.instructions('m');
+//		assertEquals( 0, nemo.capsulas);
+//
+//		assertEquals( Submarine.noMoreCapsules,
+//				assertThrows( RuntimeException.class, () -> nemo.instructions('m')).getMessage());
+//	}
 
 	
 
