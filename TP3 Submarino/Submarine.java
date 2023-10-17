@@ -7,13 +7,18 @@ public class Submarine {
 	private Directions direction;
 	private Coordenate coordenada;
 	private Height nivel;
+	public static Points initialPosition = new Points(0,0);
+
+	public static Directions initialDirection = new North();
+
+
 	public static Instructions[] instructions = {new GoDown(), new GoUp(), new TurnRight(), new TurnLeft(), new GoForward(), new UseCapsule(), new DoNothing()};
 
 
 	public Submarine(){
 
 		this.direction = new North();
-		this.coordenada = Coordenate.initialPosition;
+		this.coordenada = Points.initialPosition;
 		this.nivel = new Height();
 	}
 
@@ -33,8 +38,16 @@ public class Submarine {
 		}
 	}
 
-	public Points getCoordinte(){
+	public Points getCoordinate(){
 		return coordenada.getCoordinates();
+	}
+
+	public Directions getDirection() {
+		return direction;
+	}
+
+	public Profundidades getProfundidad() {
+		return nivel.getProfundidad();
 	}
 
 //	public Height getNivel() {

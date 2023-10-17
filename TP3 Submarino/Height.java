@@ -20,6 +20,10 @@ public class Height {
         return nivel.isSurface();
     }
 
+    public Profundidades getProfundidad() {
+        return nivel;
+    }
+
 //    public int getPronfundidad(){
 //        USAR EMPY QUEUE TP2;
 //    }

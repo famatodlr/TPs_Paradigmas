@@ -4,7 +4,7 @@ public class Coordenate{
 
 	private Points points;
 	public Coordenate( int x, int y) {
-        this.points = new Points(0,0);
+        this.points = new Points(x, y);
 	}
 
 
@@ -13,18 +13,18 @@ public class Coordenate{
 	}
 	
 	public Coordenate left() {
-		return new Coordenate( x - 1, y);
+        return new Coordenate( Points.x - 1, Points.y);
 	}
 
 	public Coordenate right() {
-		return new Coordenate( x + 1, y);
+		return new Coordenate( Points.x + 1, Points.y);
 	}
 
 	public Coordenate up() {
-		return new Coordenate( x, y + 1);
+		return new Coordenate( Points.x, Points.y + 1);
 	}
 
 	public Coordenate down() {
-		return new Coordenate( x, y - 1);
+		return new Coordenate( Points.x, Points.y - 1);
 	}
 }

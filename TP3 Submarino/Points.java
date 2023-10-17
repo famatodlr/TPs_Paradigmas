@@ -2,8 +2,9 @@ package submarino;
 
 public class Points {
 
-    private int x;
-    private int y;
+    public static int x;
+    public static int y;
+    public static Coordenate initialPosition;
 
     public Points(int x, int y){
         this.x = x;
