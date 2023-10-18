@@ -2,26 +2,21 @@ package submarino;
 
 public class ManyBelowSurface extends Profundidades {
 
-    public ManyBelowSurface(Profundidades previousLevel){
-        this.previousLevel = previousLevel;
-    }
+	public static String excessOfChocolate = "El submarino exploto por exceso de chocolate";
+	protected Profundidades goDown() {
+		return new ManyBelowSurface();
+	}
 
-    private Profundidades previousLevel;
+	protected Submarine goUp(Submarine submarine) {
+		submarine.profundidad.remove( submarine.profundidad.size() -1 );
+		return submarine;
+	}
 
-    public String doInstruction(Profundidades profundidad){
-        throw new RuntimeException(excessOfChocolate);
-    }
+	public String str() {
+		return "ManyBelowSurface";
+	}
 
-
-    public boolean isSurface() {
-        return false;
-    }
-
-    public Profundidades Emerge() {
-        return previousLevel;
-    }
-
-    public Profundidades Submerge() {
-        return new ManyBelowSurface(this);
-    }
+	public void useCapsule() {
+		throw new RuntimeException( excessOfChocolate );
+	}
 }

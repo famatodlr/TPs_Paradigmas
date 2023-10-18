@@ -2,20 +2,21 @@ package submarino;
 
 public class Surface extends Profundidades {
 
-
-    public String doInstruction(Profundidades profundidad){
-        return "Capsula lanzada correctamente";
-    }
-
-    public boolean isSurface() {
+    public boolean isSurface(){
         return true;
     }
 
-    public Profundidades Emerge() {
-        return this;
+	protected Profundidades goDown() {
+		return new OneBelowSurface();
+	}
+
+    protected Submarine goUp(Submarine submarine) {
+        return submarine;
     }
 
-    public Profundidades Submerge() {
-        return new OneBelowSurface();
+    public String str() {
+        return "Surface";
     }
+
+
 }

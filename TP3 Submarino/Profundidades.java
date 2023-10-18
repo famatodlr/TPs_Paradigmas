@@ -1,15 +1,16 @@
 package submarino;
 
-import java.util.ArrayList;
-
 public abstract class Profundidades {
 
+    public boolean isSurface(){
+        return false;
+    }
 
-    public abstract boolean isSurface();
-    public abstract Profundidades Emerge();
-    public abstract Profundidades Submerge();
-    public static String excessOfChocolate = "El submarino exploto por exceso de chocolate";
+	protected abstract Profundidades goDown();
 
+    protected abstract Submarine goUp(Submarine submarine);
 
+    public abstract String str();
 
+    public void useCapsule(){}
 }

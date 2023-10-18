@@ -2,7 +2,8 @@ package submarino;
 
 public class GoDown extends Instructions {
 
-    public Profundidades doInstruction(Profundidades nivel) {
-        return nivel.Submerge();
+    public Submarine doInstruction( Submarine submarine ){
+        submarine.profundidad.add( submarine.profundidad.get( submarine.profundidad.size() -1 ).goDown() );
+        return submarine;
     }
 }

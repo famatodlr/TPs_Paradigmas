@@ -2,7 +2,8 @@ package submarino;
 
 public class GoForward extends Instructions {
 
-    public Coordenate doInstruction(Directions direccion, Coordenate coordenada) {
-        return direccion.goForward( coordenada);
+    public Submarine doInstruction(Submarine submarine) {
+        submarine.coordenadas =  submarine.direccion.goForward( submarine.coordenadas );
+        return  submarine;
     }
 }

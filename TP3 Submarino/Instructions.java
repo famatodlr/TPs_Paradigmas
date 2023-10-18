@@ -7,10 +7,12 @@ public class Instructions {
 
 	public static ArrayList<Character> comands = new ArrayList<>(Arrays.asList('d', 'u', 'r', 'l', 'f', 'm', ' '));
 
-	public void followComand(char comand) {
+	public Submarine followComand(char comand, Submarine submarine) {
 		int index = comands.indexOf(comand);
-		Submarine.instructions[index].doInstruction();
+		return Submarine.instructions[index].doInstruction( submarine );
 	}
 
-	private void doInstruction() {}
+	public Submarine doInstruction(Submarine submarine){
+		return submarine;
+	}
 }

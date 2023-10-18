@@ -1,16 +1,21 @@
 package submarino;
 
 public class Coordenate{
+	public int x;
+	public int y;
 
-	private Points points;
+	public String direccionActual;
+
 	public Coordenate( int x, int y) {
-        this.points = new Points(x, y);
-	}
+//        this.points = new Points(x, y);
+//	}
+		this.x = x;
+		this.y = y;
 
 
-	public Points getCoordinates() {
-		return points;
 	}
+	
+	public static Coordenate initialPosition = new Coordenate( 0,0 );
 	
 	public Coordenate left() {
         return new Coordenate( Points.x - 1, Points.y);
