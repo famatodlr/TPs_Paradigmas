@@ -1,10 +1,8 @@
 package submarino;
 public class UseCapsule extends Instructions {
 
-    public Submarine doInstruction(Submarine submarine) {
-//        submarine.profundidad.get( submarine.profundidad.size() -1 ).useCapsule();
+    public void doInstruction(Submarine submarine) {
         submarine.nivel.useCapsule();
-        return submarine;
 
     }
 }
