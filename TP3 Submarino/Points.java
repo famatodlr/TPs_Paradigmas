@@ -19,8 +19,9 @@ public class Points {
     }
 
 
+
     //UN SOLO PARAMETRO
-    public Points sum( Points point1, Points point2){
-        return new Points( point1.getX() + point2.getX() , point1.getY() + point2.getY());
-    }
+//    public Points sum( Points punto){
+//        return new Points( this.getX() + punto.getX(), this.getY() + punto.getY());
+//    }
 }

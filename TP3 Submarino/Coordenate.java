@@ -45,5 +45,6 @@ public class Coordenate{
 
 	public Coordenate sum( Coordenate coordenate){
 		return new Coordenate( this.getX() + coordenate.getX(), this.getY() + coordenate.getY());
+
 	}
 }

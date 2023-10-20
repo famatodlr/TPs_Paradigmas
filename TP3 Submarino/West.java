@@ -12,6 +12,7 @@ public class West extends Directions {
 
     public Coordenate goForward(Coordenate coordenada) {
         return coordenada.left();
+//        return coordenada.sum( new Coordenate( -1, 0));
     }
     
     public String str() {

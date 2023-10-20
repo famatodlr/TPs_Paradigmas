@@ -1,7 +1,6 @@
 package submarino;
 
 public class Height {
-
     private Profundidades nivel;
 
     public Height() {

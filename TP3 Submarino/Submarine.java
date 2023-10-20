@@ -9,11 +9,10 @@ public class Submarine {
 	public static Instructions[] instructions = {new GoDown(), new GoUp(), new TurnRight(), new TurnLeft(), new GoForward(), new UseCapsule(), new DoNothing()};
 
 
-	//PONER PARAMETROS
-	public Submarine() {
-		coordenadas = Coordenate.initialPosition;
+	public Submarine(Coordenate coordenadas, Height nivel) {
+		this.coordenadas = coordenadas;
+		this.nivel = nivel;
 		direccion = Directions.initialDirection;
-		nivel = new Height();
 	}
 
 	public boolean isAtSurface() {
