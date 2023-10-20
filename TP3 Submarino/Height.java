@@ -25,6 +25,9 @@ public class Height {
         return nivel;
     }
 
+    public void useCapsule(){
+        nivel.useCapsule();
+    }
 
 }
 

@@ -1,8 +1,8 @@
 package submarino;
 
 public class Coordenate{
-	public int x;
-	public int y;
+	private int x;
+	private int y;
 
 	public String direccionActual;
 
@@ -11,29 +11,43 @@ public class Coordenate{
 //	}
 		this.x = x;
 		this.y = y;
-
-
 	}
 	
 	public static Coordenate initialPosition = new Coordenate( 0,0 );
 	
 	public Coordenate left() {
-        return new Coordenate( Points.x - 1, Points.y);
+//        return new Coordenate( this.x - 1, this.y);
+		return this.sum( new Coordenate( -1, 0));
 	}
 
 	public Coordenate right() {
-		return new Coordenate( Points.x + 1, Points.y);
+//		return new Coordenate( this.x + 1, this.y);
+		return this.sum( new Coordenate( 1, 0));
 	}
 
 	public Coordenate up() {
-		return new Coordenate( Points.x, Points.y + 1);
+//		return new Coordenate( this.x, this.y + 1);
+		return this.sum( new Coordenate( 0, 1));
 	}
 
 	public Coordenate down() {
-		return new Coordenate( Points.x, Points.y - 1);
+//		return new Coordenate( this.x, this.y - 1);
+		return this.sum( new Coordenate( 0, -1));
 	}
 
 	public Coordenate getCoordinates() {
-		return new Coordenate( x, y);
+		return this;
+	}
+
+	public int getX(){
+		return this.x;
+	}
+
+	public int getY(){
+		return this.y;
+	}
+
+	public Coordenate sum( Coordenate coordenate){
+		return new Coordenate( this.getX() + coordenate.getX(), this.getY() + coordenate.getY());
 	}
 }

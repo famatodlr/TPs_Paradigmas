@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Submarine {
 
-	public ArrayList<Profundidades> profundidad;
+//	public ArrayList<Profundidades> profundidad;
 	public Coordenate coordenadas;
 	public Directions direccion;
 	public Height nivel;

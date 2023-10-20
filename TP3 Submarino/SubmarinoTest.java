@@ -14,32 +14,26 @@ public class SubmarinoTest {
 		// Esta en la superficie?
 		// En que poosicion esta?
 		// Para donde esta mirando? (direccion)
-		
-		Submarine nemo = new Submarine();
-		
-		assertTrue(nemo.isAtSurface());
-//		assertEquals( Coordenate.initialPosition ,nemo.getCoordinate());
-//		CHEQUEAR PORQUE NO ANDA CON GETCOORDINATE
-		assertEquals(Coordenate.initialPosition, nemo.coordenadas);
-		assertEquals( Directions.initialDirection, nemo.getDirection());
-//		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
-//		assertEquals( Directions.initialDirection, nemo.direccion);
 
+		Submarine nemo = new Submarine();
+
+		assertTrue(nemo.isAtSurface());
+		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Directions.initialDirection, nemo.getDirection());
 	}
-	
+
 	@Test public void nemoDontReactToEmptyInstructions() {
 		// Le paso "" y permanece en el lugar
 		
 		Submarine nemo = new Submarine();
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
-		
+		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+
 		nemo.instructions(' ');
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
-//		assertEquals( 1 , nemo.capsulas);
+		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
 	}
 	
 	@Test public void nemoCanGoDown() {
@@ -52,9 +46,7 @@ public class SubmarinoTest {
 		nemo.instructions('d');
 		
 		assertFalse(nemo.isAtSurface());
-//		assertEquals( 1 , nemo.getProfundidad());
-//		assertEquals( new OneBelowSurface().str()  , nemo.profundidad.get( nemo.profundidad.size() -1 ).str() );
-		assertEquals( new OneBelowSurface().str()  , nemo.getProfundidad().str() );
+		assertEquals( OneBelowSurface.class, nemo.getProfundidad().getClass());
 	}
 	
 	@Test public void nemoDontReactIfGoesUpInSurface() {
@@ -77,10 +69,7 @@ public class SubmarinoTest {
 		nemo.instructions('d');
 		
 		assertFalse(nemo.isAtSurface());
-//		assertEquals( 1 , nemo.getProfundidad());
-//		assertEquals( new OneBelowSurface().str() , nemo.profundidad.get( nemo.profundidad.size() -1 ).str() );
-		assertEquals( new OneBelowSurface().str() , nemo.getProfundidad().str() );
-
+		assertEquals( OneBelowSurface.class, nemo.getProfundidad().getClass());
 
 		nemo.instructions('u');
 		
@@ -96,8 +85,8 @@ public class SubmarinoTest {
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 		
 		nemo.instructions('l');
-		
-		assertEquals( "West", nemo.getDirection().str());
+
+		assertEquals( West.class, nemo.getDirection().getClass());
 	}
 	
 	@Test public void canDoACompleteTurnAnticlockwise() {
@@ -108,8 +97,8 @@ public class SubmarinoTest {
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 		
 		nemo.multipleInstructions("llll");
-		
-		assertEquals( "North", nemo.getDirection().str());
+
+		assertEquals( North.class, nemo.getDirection().getClass());
 	}
 
 	@Test public void canRotateToRight() {
@@ -121,7 +110,7 @@ public class SubmarinoTest {
 
 		nemo.instructions('r');
 
-		assertEquals( "East", nemo.getDirection().str());
+		assertEquals( East.class, nemo.getDirection().getClass());
 	}
 	
 	@Test public void canDoACompleteTurnClockwise() {
@@ -132,8 +121,8 @@ public class SubmarinoTest {
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 		
 		nemo.multipleInstructions("rrrr");
-		
-		assertEquals( "North", nemo.getDirection().str());
+
+		assertEquals( North.class, nemo.getDirection().getClass());
 	}
 	
 	@Test public void rightOppositeToLeft() {
@@ -145,8 +134,8 @@ public class SubmarinoTest {
 		
 		nemo.instructions('r');
 		nemo.instructions('l');
-		
-		assertEquals( "North", nemo.getDirection().str());
+
+		assertEquals( North.class, nemo.getDirection().getClass());
 	}
 
 	@Test public void nemoCanGoFoward() {
@@ -154,18 +143,12 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine();
 
-//		assertEquals( Points.initialPosition.getCoordinates(), nemo.getCoordinate());
-//
-//		nemo.instructions('f');
-//
-//		assertEquals(new Points(0, 1), nemo.getCoordinate());
-
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
+		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
 
 		nemo.instructions('f');
 
-		assertEquals(0, nemo.coordenadas.x);
-		assertEquals(1, nemo.coordenadas.y);
+		assertEquals( 0 , nemo.getCoordinate().getX());
+		assertEquals( 1 , nemo.getCoordinate().getY());
 	}
 
 	@Test public void canGoFowardManyTimes(){
@@ -173,17 +156,12 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine();
 
-//		assertEquals( Points.initialPosition.getCoordinates(), nemo.getCoordinate());
-//
-//		nemo.multipleInstructions("fff");
-//
-//		assertEquals(new Points(0, 3), nemo.getCoordinate());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
+		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
 
 		nemo.multipleInstructions("fff");
 
-		assertEquals(0, nemo.coordenadas.x);
-		assertEquals(3, nemo.coordenadas.y);
+		assertEquals( 0 , nemo.getCoordinate().getX());
+		assertEquals( 3, nemo.getCoordinate().getY());
 	}
 
 	@Test public void CanGOFowardAndRotate(){
@@ -191,20 +169,13 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine();
 
-//		assertEquals( Points.initialPosition.getCoordinates(), nemo.getCoordinate());
-//
-//		nemo.multipleInstructions("ffrff");
-//
-//		assertEquals(new Points(2,2), nemo.getCoordinate());
-//
-//		assertEquals( "East", nemo.getDirection().str());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
+		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
 
 		nemo.multipleInstructions("ffrff");
 
-		assertEquals(2, nemo.coordenadas.x);
-		assertEquals(2, nemo.coordenadas.y);
-		assertEquals( "East", nemo.direccion.str());
+		assertEquals(2, nemo.getCoordinate().getX());
+		assertEquals(2, nemo.getCoordinate().getY());
+		assertEquals( East.class, nemo.getDirection().getClass());
 	}
 
 	@Test public void canRecieveComplexInstructions(){
@@ -212,21 +183,13 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine();
 
-//		assertEquals( Points.initialPosition.getCoordinates(), nemo.getCoordinate());
-//
-//		nemo.multipleInstructions("ufdfurffdlffd");
-//
-//		assertEquals(new Points(2,4), nemo.getCoordinate());
-//		assertEquals( "North", nemo.getDirection().str());
-//		assertEquals( 2, nemo.getProfundidad());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
+		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
 
 		nemo.multipleInstructions("ufdfurffdlffd");
 
-		assertEquals(2, nemo.coordenadas.x);
-		assertEquals(4, nemo.coordenadas.y);
-		assertEquals( "North", nemo.direccion.str());
-//		assertEquals( new ManyBelowSurface(this).str(), nemo.profundidad.get( nemo.profundidad.size() -1 ).str());
+		assertEquals(2, nemo.getCoordinate().getX());
+		assertEquals(4, nemo.getCoordinate().getY());
+		assertEquals( North.class, nemo.getDirection().getClass());
 
 	}
 
@@ -236,14 +199,14 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine();
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
-		assertEquals( Directions.initialDirection, nemo.direccion);
+		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Directions.initialDirection, nemo.getDirection());
 
 		nemo.instructions('m');
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.coordenadas);
-		assertEquals( Directions.initialDirection, nemo.direccion);
+		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Directions.initialDirection, nemo.getDirection());
 
 	}
 
@@ -253,7 +216,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine();
 
 		nemo.multipleInstructions("dd");
-//		assertEquals(  new ManyBelowSurface().str(), nemo.profundidad.get( nemo.profundidad.size() -1 ).str());
+		assertEquals( ManyBelowSurface.class, nemo.getProfundidad().getClass());
 
 		assertEquals( ManyBelowSurface.excessOfChocolate,
 				assertThrows( RuntimeException.class, () -> nemo.instructions('m')).getMessage());
