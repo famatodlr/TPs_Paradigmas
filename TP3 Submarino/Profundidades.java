@@ -1,14 +1,23 @@
 package submarino;
 
-public abstract class Profundidades {
+import java.util.ArrayList;
 
-    public boolean isSurface(){
-        return false;
+public abstract class Profundidades {
+    public static ArrayList<Profundidades> initialProfundidad() {
+        ArrayList<Profundidades> profundidad = new ArrayList<>();
+        profundidad.add( new Surface());
+        return profundidad;
     }
 
-	protected abstract Profundidades goDown();
+//    public boolean isSurface(){
+//        return false;
+//    }
 
-    protected abstract Submarine goUp(Submarine submarine);
+    public abstract boolean isSurface();
+    public abstract Profundidades Emerge();
+    public abstract Profundidades Submerge();
+//	protected abstract Profundidades goDown();
+//    protected abstract Submarine goUp(Submarine submarine);
 
     public abstract String str();
 

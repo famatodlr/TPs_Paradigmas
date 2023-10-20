@@ -32,4 +32,8 @@ public class Coordenate{
 	public Coordenate down() {
 		return new Coordenate( Points.x, Points.y - 1);
 	}
+
+	public Coordenate getCoordinates() {
+		return new Coordenate( x, y);
+	}
 }
