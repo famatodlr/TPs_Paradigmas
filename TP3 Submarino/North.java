@@ -11,8 +11,9 @@ public class North extends Directions {
         return new West();
     }
 
-    public Coordenate goForward(Coordenate coordenada) {
-        return coordenada.up();
+    public void moveSomewhere(Submarine submarine) {
+        submarine.updatePosition( new Points(0, 1));
+
     }
     
     public String str() {

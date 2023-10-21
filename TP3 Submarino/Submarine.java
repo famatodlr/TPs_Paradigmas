@@ -24,12 +24,13 @@ public class Submarine {
 	}
 
 	public void multipleInstructions(String instructions) {
-		instructions.chars().forEach( instruction -> this.instructions( (char) instruction ));
+		instructions.chars().forEach(instruction -> this.instructions((char) instruction));
 	}
 
-	public Coordenate getCoordinate() {
+	public Points getCoordinate() {
 		return coordenadas.getCoordinates();
 	}
+
 
 	public Directions getDirection() {
 		return direccion;
@@ -38,6 +39,10 @@ public class Submarine {
 
 	public Profundidades getProfundidad() {
 		return nivel.getProfundidad();
+	}
+
+	public void updatePosition(Points points) {
+		this.coordenadas.updateCoordinates(points);
 	}
 }
 

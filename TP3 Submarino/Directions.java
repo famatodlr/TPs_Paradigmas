@@ -7,7 +7,7 @@ public abstract class Directions {
 
     public abstract Directions turnLeft();
 
-    public abstract Coordenate goForward( Coordenate coordenada);
+    public abstract void moveSomewhere(Submarine submarine);
 
     public abstract Object str();
 

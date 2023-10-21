@@ -18,7 +18,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals(Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 	}
 
@@ -28,12 +28,12 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals(Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 
 		nemo.multipleInstructions(" ");
 		
 		assertTrue(nemo.isAtSurface());
-		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals(Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 	}
 	
 	@Test public void nemoCanGoDown03() {
@@ -143,7 +143,7 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 
-		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals(Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 
 		nemo.multipleInstructions("f");
 
@@ -156,12 +156,13 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 
 		nemo.multipleInstructions("fff");
 
 		assertEquals( 0 , nemo.getCoordinate().getX());
 		assertEquals( 3, nemo.getCoordinate().getY());
+		assertEquals( North.class, nemo.getDirection().getClass());
 	}
 
 	@Test public void CanGOFowardAndRotate13(){
@@ -169,7 +170,7 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 
-		assertEquals(Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals(Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 
 		nemo.multipleInstructions("ffrff");
 
@@ -183,7 +184,7 @@ public class SubmarinoTest {
 
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 
 		nemo.multipleInstructions("ufdfurffdlffd");
 
@@ -193,19 +194,21 @@ public class SubmarinoTest {
 
 	}
 
+
+
 	@Test public void nemoCanThrowCapsule15() {
 		// TEastar pasarle 'm' y que lance una capsula
 
 		Submarine nemo = new Submarine(Coordenate.initialPosition, new Height());
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 
 		nemo.multipleInstructions("m");
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 
 	}
@@ -236,7 +239,7 @@ public class SubmarinoTest {
 		nemo.multipleInstructions("m");
 
 		assertFalse(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 	}
 
@@ -262,7 +265,7 @@ public class SubmarinoTest {
 		nemo.multipleInstructions("m");
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 	}
 
@@ -274,7 +277,7 @@ public class SubmarinoTest {
 		nemo.multipleInstructions("mdmum");
 
 		assertTrue(nemo.isAtSurface());
-		assertEquals( Coordenate.initialPosition, nemo.getCoordinate());
+		assertEquals( Coordenate.initialPosition.getCoordinates(), nemo.getCoordinate());
 		assertEquals( Directions.initialDirection, nemo.getDirection());
 	}
 }
