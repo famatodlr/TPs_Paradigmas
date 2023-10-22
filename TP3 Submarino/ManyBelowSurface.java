@@ -22,5 +22,4 @@ public class ManyBelowSurface extends Profundidades {
 	public void useCapsule() {
 		throw new RuntimeException( excessOfChocolate );
 	}
-
 }

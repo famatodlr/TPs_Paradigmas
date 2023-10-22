@@ -11,7 +11,4 @@ public class North extends Directions {
     public void moveSomewhere(Submarine submarine) {
         submarine.updatePosition( new Points(0, 1));
     }
-
-
-
 }

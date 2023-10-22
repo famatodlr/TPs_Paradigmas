@@ -12,4 +12,5 @@ public class Instructions {
 	}
 	public void doInstruction(Submarine submarine){
 	}
+
 }

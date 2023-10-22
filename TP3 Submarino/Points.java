@@ -21,4 +21,5 @@ public class Points {
         this.Ycoord += punto.getY();
         return new Points(this.Xcoord, this.Ycoord);
     }
+
 }

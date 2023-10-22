@@ -17,7 +17,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions(" ");
+		nemo.instructions(" ");
 
 		assertInitialVariables(nemo);
 	}
@@ -26,7 +26,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertTrue(nemo.isAtSurface());
 
-		nemo.multipleInstructions("d");
+		nemo.instructions("d");
 
 		assertFalse(nemo.isAtSurface());
 		assertProfundidad(nemo, new OneBelowSurface());
@@ -36,7 +36,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertTrue(nemo.isAtSurface());
 
-		nemo.multipleInstructions("u");
+		nemo.instructions("u");
 
 		assertTrue(nemo.isAtSurface());
 	}
@@ -44,12 +44,12 @@ public class SubmarinoTest {
 	@Test public void nemoCanGoUp05(){
 		Submarine nemo = new Submarine(initialCoordinate());
 
-		nemo.multipleInstructions("d");
+		nemo.instructions("d");
 
 		assertFalse(nemo.isAtSurface());
 		assertProfundidad(nemo, new OneBelowSurface());
 
-		nemo.multipleInstructions("u");
+		nemo.instructions("u");
 
 		assertTrue(nemo.isAtSurface());
 	}
@@ -59,7 +59,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertDirections(nemo, initialDirection());
 
-		nemo.multipleInstructions("l");
+		nemo.instructions("l");
 
 		assertDirections(nemo, new West());
 	}
@@ -68,7 +68,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertDirections(nemo, initialDirection());
 
-		nemo.multipleInstructions("llll");
+		nemo.instructions("llll");
 
 		assertDirections(nemo, initialDirection());
 	}
@@ -77,7 +77,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertDirections(nemo, initialDirection());
 
-		nemo.multipleInstructions("r");
+		nemo.instructions("r");
 
 		assertDirections(nemo, new East());
 	}
@@ -86,7 +86,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertDirections(nemo, initialDirection());
 
-		nemo.multipleInstructions("rrrr");
+		nemo.instructions("rrrr");
 
 		assertDirections(nemo, initialDirection());
 	}
@@ -95,7 +95,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertDirections(nemo, initialDirection());
 
-		nemo.multipleInstructions("rl");
+		nemo.instructions("rl");
 
 		assertDirections(nemo, initialDirection());
 	}
@@ -104,7 +104,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("f");
+		nemo.instructions("f");
 
 		assertCoordinatesAndDirections(nemo, 0, 1, initialDirection());
 	}
@@ -113,7 +113,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("fff");
+		nemo.instructions("fff");
 
 		assertCoordinatesAndDirections(nemo, 0, 3, initialDirection());
 	}
@@ -121,7 +121,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("ffrff");
+		nemo.instructions("ffrff");
 
 		assertCoordinatesAndDirections(nemo, 2, 2, new East());
 	}
@@ -129,7 +129,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("ufdfurffdlffd");
+		nemo.instructions("ufdfurffdlffd");
 
 		assertProfundidad(nemo, new ManyBelowSurface( new OneBelowSurface()));
 		assertCoordinatesAndDirections(nemo, 2, 4, new North());
@@ -139,7 +139,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("m");
+		nemo.instructions("m");
 
 		assertInitialVariables(nemo);
 
@@ -148,11 +148,11 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 
 
-		nemo.multipleInstructions("d");
+		nemo.instructions("d");
 
 		assertProfundidad(nemo, new OneBelowSurface());
 
-		nemo.multipleInstructions("m");
+		nemo.instructions("m");
 
 		assertCoordinatesAndDirections(nemo, 0, 0, initialDirection());
 		assertProfundidad(nemo, new OneBelowSurface());
@@ -161,15 +161,15 @@ public class SubmarinoTest {
 	@Test public void nemoCanMoveAndThrowCapsule17(){
 		Submarine nemo = new Submarine(initialCoordinate());
 
-		nemo.multipleInstructions("ddum");
+		nemo.instructions("ddum");
 
 		assertProfundidad(nemo, new OneBelowSurface());
 
-		nemo.multipleInstructions("u");
+		nemo.instructions("u");
 
 		assertTrue(nemo.isAtSurface());
 
-		nemo.multipleInstructions("m");
+		nemo.instructions("m");
 
 		assertTrue(nemo.isAtSurface());
 		assertCoordinatesAndDirections(nemo, 0, 0, initialDirection());
@@ -177,17 +177,17 @@ public class SubmarinoTest {
 	@Test public void cantThrowCapsuleTooDeep18(){
 		Submarine nemo = new Submarine(initialCoordinate());
 
-		nemo.multipleInstructions("dd");
+		nemo.instructions("dd");
 		assertProfundidad(nemo, new ManyBelowSurface( new OneBelowSurface()));
 
 		assertEquals( ManyBelowSurface.excessOfChocolate,
-				assertThrows( RuntimeException.class, () -> nemo.multipleInstructions("m")).getMessage());
+				assertThrows( RuntimeException.class, () -> nemo.instructions("m")).getMessage());
 	}
 	@Test public void nemoCanDropMultipleCapsules19(){
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("mmm");
+		nemo.instructions("mmm");
 
 		assertInitialVariables(nemo);
 	}
@@ -195,7 +195,7 @@ public class SubmarinoTest {
 		Submarine nemo = new Submarine(initialCoordinate());
 		assertInitialVariables(nemo);
 
-		nemo.multipleInstructions("mdmum");
+		nemo.instructions("mdmum");
 
 		assertCoordinatesAndDirections(nemo, 0, 0, initialDirection());
 	}

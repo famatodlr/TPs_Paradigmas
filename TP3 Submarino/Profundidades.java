@@ -4,4 +4,5 @@ public abstract class Profundidades {
     public abstract Profundidades Emerge();
     public abstract Profundidades Submerge();
     public void useCapsule(){}
+
 }

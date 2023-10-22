@@ -12,11 +12,11 @@ public class Submarine {
 		direccion = new North();
 	}
 
-	public void instructions(Character instruction) {
+	public void oneInstruction(Character instruction) {
 		new Instructions().followComand(instruction, this);
 	}
-	public void multipleInstructions(String instructions) {
-		instructions.chars().forEach(instruction -> this.instructions((char) instruction));
+	public void instructions(String instructions) {
+		instructions.chars().forEach(instruction -> this.oneInstruction((char) instruction));
 
 	}
 
