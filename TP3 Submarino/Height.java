@@ -23,8 +23,17 @@ public class Height {
         return nivel;
     }
 
+    public Height updateHeight(Profundidades profundidad){
+        nivel = profundidad;
+        return this;
+    }
+
     public void useCapsule(){
         nivel.useCapsule();
+    }
+
+    public void setProfundidad(Profundidades profundidad){
+        nivel = profundidad;
     }
 
 }

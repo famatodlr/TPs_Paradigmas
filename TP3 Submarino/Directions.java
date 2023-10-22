@@ -1,7 +1,6 @@
 package submarino;
 
 public abstract class Directions {
-    public static Directions initialDirection = new North();
 
     public abstract Directions turnRight();
 

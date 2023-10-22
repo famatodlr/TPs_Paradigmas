@@ -2,17 +2,17 @@ package submarino;
 
 public class Submarine {
 
-	public Coordenate coordenadas;
-	public Directions direccion;
-	public Height nivel;
+	private Coordenate coordenadas;
+	private Directions direccion;
+	private Height nivel;
 
 	public static Instructions[] instructions = {new GoDown(), new GoUp(), new TurnRight(), new TurnLeft(), new GoForward(), new UseCapsule(), new DoNothing()};
 
 
-	public Submarine(Coordenate coordenadas, Height nivel) {
+	public Submarine(Coordenate coordenadas) {
 		this.coordenadas = coordenadas;
-		this.nivel = nivel;
-		direccion = Directions.initialDirection;
+		this.nivel = new Height();
+		direccion = new North();
 	}
 
 	public boolean isAtSurface() {
@@ -36,13 +36,24 @@ public class Submarine {
 		return direccion;
 	}
 
+	public Height getHeight() {
+		return nivel;
+	}
 
 	public Profundidades getProfundidad() {
-		return nivel.getProfundidad();
+		return this.nivel.getProfundidad();
 	}
 
 	public void updatePosition(Points points) {
 		this.coordenadas.updateCoordinates(points);
+	}
+
+	public void updateDirection(Directions direction) {
+		this.direccion = direction;
+	}
+
+	public void updateHeight(Profundidades profundidad) {
+		this.nivel = this.nivel.updateHeight(profundidad);
 	}
 }
 

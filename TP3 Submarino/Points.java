@@ -2,8 +2,8 @@ package submarino;
 
 public class Points {
 
-    private static int Xcoord;
-    private static int Ycoord;
+    private int Xcoord;
+    private int Ycoord;
 
     public Points(int x, int y){
         Xcoord = x;
@@ -18,8 +18,10 @@ public class Points {
         return Ycoord;
     }
 
-//    public Points sum( Points punto){
-//        return new Points( this.getX() + punto.getX(), this.getY() + punto.getY());
-//    }
+    public Points sum( Points punto){
+        this.Xcoord += punto.getX();
+        this.Ycoord += punto.getY();
+        return this;
+    }
 
 }
