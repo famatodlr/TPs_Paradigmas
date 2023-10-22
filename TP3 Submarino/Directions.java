@@ -8,8 +8,6 @@ public abstract class Directions {
 
     public abstract void moveSomewhere(Submarine submarine);
 
-    public abstract Object str();
-
 
 
 

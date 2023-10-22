@@ -28,14 +28,6 @@ public class Height {
         return this;
     }
 
-    public void useCapsule(){
-        nivel.useCapsule();
-    }
-
-    public void setProfundidad(Profundidades profundidad){
-        nivel = profundidad;
-    }
-
 }
 
 

@@ -12,13 +12,8 @@ public class South extends Directions {
     }
 
     public void moveSomewhere(Submarine submarine) {
-//        return coordenada.down();
         submarine.updatePosition( new Points( 0, -1));
 
-    }
-    
-    public String str() {
-    	return "South";
     }
 
 }

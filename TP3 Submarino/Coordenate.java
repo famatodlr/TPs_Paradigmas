@@ -9,13 +9,13 @@ public class Coordenate{
 		this.position = point;
 	}
 
-	public static Coordenate initialPosition = new Coordenate(new Points(0, 0));
+	public static Coordenate initialPosition = new Coordenate( Points.initialPoint);
 
 	public Points getCoordinates() {
 		return position;
 	}
 
 	public void updateCoordinates(Points point) {
-		position = position.sum(point);
+		position = point.sum(position);
 	}
 }

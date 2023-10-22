@@ -24,4 +24,5 @@ public class Points {
         return new Points(this.Xcoord, this.Ycoord);
     }
 
+    public static Points initialPoint = new Points(0, 0);
 }

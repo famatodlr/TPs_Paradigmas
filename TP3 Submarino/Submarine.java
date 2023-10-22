@@ -45,7 +45,7 @@ public class Submarine {
 	}
 
 	public void updatePosition(Points points) {
-		this.coordenadas.updateCoordinates(points);
+		coordenadas.updateCoordinates(points);
 	}
 
 	public void updateDirection(Directions direction) {
