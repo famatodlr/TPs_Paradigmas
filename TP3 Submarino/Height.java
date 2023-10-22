@@ -2,7 +2,6 @@ package submarino;
 
 public class Height {
     private Profundidades nivel;
-
     public Height() {
         nivel = new Surface();
     }
@@ -22,12 +21,6 @@ public class Height {
     public Profundidades getProfundidad() {
         return nivel;
     }
-
-    public Height updateHeight(Profundidades profundidad){
-        nivel = profundidad;
-        return this;
-    }
-
 }
 
 

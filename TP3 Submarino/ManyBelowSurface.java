@@ -1,7 +1,6 @@
 package submarino;
 
 public class ManyBelowSurface extends Profundidades {
-
 	public static String excessOfChocolate = "El submarino exploto por exceso de chocolate";
 	private Profundidades previousLevel;
 
@@ -20,11 +19,6 @@ public class ManyBelowSurface extends Profundidades {
 	public Profundidades Submerge(){
 		return new ManyBelowSurface(this);
 	}
-
-	public String str() {
-		return "ManyBelowSurface";
-	}
-
 	public void useCapsule() {
 		throw new RuntimeException( excessOfChocolate );
 	}

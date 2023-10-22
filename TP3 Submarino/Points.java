@@ -1,7 +1,6 @@
 package submarino;
 
 public class Points {
-
     private int Xcoord;
     private int Ycoord;
 
@@ -13,7 +12,6 @@ public class Points {
     public int getX() {
         return Xcoord;
     }
-
     public int getY() {
         return Ycoord;
     }
@@ -23,6 +21,4 @@ public class Points {
         this.Ycoord += punto.getY();
         return new Points(this.Xcoord, this.Ycoord);
     }
-
-    public static Points initialPoint = new Points(0, 0);
 }
