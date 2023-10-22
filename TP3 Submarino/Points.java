@@ -21,7 +21,7 @@ public class Points {
     public Points sum( Points punto){
         this.Xcoord += punto.getX();
         this.Ycoord += punto.getY();
-        return this;
+        return new Points(this.Xcoord, this.Ycoord);
     }
 
 }

@@ -16,6 +16,6 @@ public class Coordenate{
 	}
 
 	public void updateCoordinates(Points point) {
-		position = point.sum(position);
+		position = position.sum(point);
 	}
 }
