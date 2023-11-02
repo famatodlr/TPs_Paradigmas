@@ -27,20 +27,6 @@ public class Connect4Test {
 
     @Test public void test03(){
         Linea game = new Linea(6, 7, 'A');
-
-        // 1x1
-        // y = 0
-
-        //2x2 =
-        // 0=7
-
-        // 2 + 3 = 1   ( 2 + 2 *(altura) + 1 ) - y
-        // 2 + 5 = 2
-        // 2 + 7 = 3
-
-        // "| | |\n" +
-        // "| | |"
-
         assertEquals( "| | | | | | |\n" +
                                "| | | | | | |\n" +
                                "| | | | | | |\n" +
@@ -192,6 +178,6 @@ public class Connect4Test {
                               "| | | | | | |\n" +
                               "| | | | | | |\n" +
                               "|R| | | | | |\n" +
-                              "|R|B| |R|B| |", game.show());
+                              "|R|B| | |R|B|", game.show());
     }
 }

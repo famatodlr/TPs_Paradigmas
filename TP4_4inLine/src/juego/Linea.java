@@ -30,18 +30,20 @@ public class Linea {
 
     public String show() {
         StringBuilder mostrar = new StringBuilder();
-        for (int i = 0; i < altura; i++) {
+        for (int i = altura -1; i >= 0; i--) {
             mostrar.append("|");
-            mostrar.append(" |".repeat(Math.max(0, base)));
+            for (int j = 0; j < base; j++) {
+                if (tablero.get(j).size() > i) {
+                    mostrar.append(tablero.get(j).get(i));
+                } else {
+                    mostrar.append(" ");
+                }
+                mostrar.append("|");
+            }
             mostrar.append("\n");
         }
-        mostrar.delete( mostrar.length() - 1, mostrar.length());
 
-        for (int i = 0; i < altura; i++) {
-            for (int j = 0; j < tablero.get(i).size(); j++) {
-                reemplazarCoordenada(mostrar, i, j, buscarCoordenada(i, j));
-            }
-        }
+        mostrar.delete(mostrar.length() - 1, mostrar.length());
 
         return mostrar.toString();
     }
@@ -83,11 +85,5 @@ public class Linea {
 
     public String getTurno() {
         return turno;
-    }
-
-    private StringBuilder reemplazarCoordenada(StringBuilder tablero, int x, int y, char ficha) {
-        int coordenada = (2 * altura) * (base - y) + (2 * x);
-        tablero.replace(coordenada - 1, coordenada, String.valueOf(ficha));
-        return tablero;
     }
 }
