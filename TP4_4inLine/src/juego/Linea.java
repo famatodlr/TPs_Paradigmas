@@ -12,6 +12,8 @@ public class Linea {
     private int altura;
     private char jugabilidad;
 
+    private boolean finished = false;
+
     private String turno = "Red";
 
     public Linea(int base, int altura, char jugabilidad) {
@@ -33,11 +35,19 @@ public class Linea {
             mostrar.append(" |".repeat(Math.max(0, base)));
             mostrar.append("\n");
         }
+        mostrar.delete( mostrar.length() - 1, mostrar.length());
+
+        for (int i = 0; i < altura; i++) {
+            for (int j = 0; j < tablero.get(i).size(); j++) {
+                reemplazarCoordenada(mostrar, i, j, buscarCoordenada(i, j));
+            }
+        }
+
         return mostrar.toString();
     }
 
     public boolean finished() {
-        return false;
+        return finished;
     }
 
     public void playRedAt(int jugada) {
@@ -73,5 +83,11 @@ public class Linea {
 
     public String getTurno() {
         return turno;
+    }
+
+    private StringBuilder reemplazarCoordenada(StringBuilder tablero, int x, int y, char ficha) {
+        int coordenada = (2 * altura) * (base - y) + (2 * x);
+        tablero.replace(coordenada - 1, coordenada, String.valueOf(ficha));
+        return tablero;
     }
 }
