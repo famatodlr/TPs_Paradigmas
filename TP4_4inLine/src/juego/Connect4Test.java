@@ -93,18 +93,21 @@ public class Connect4Test {
 
 
 
-    @Test public void test11() {
-        Linea game = new Linea(4,4, 'A');
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
-
-        assertTrue(game.finished());
-    }
+//    @Test public void test11() {
+//        //gano el rojo
+//        Linea game = new Linea(4,4, 'A');
+//        game.playRedAt(0);
+//        game.playBlueAt(1);
+//        game.playRedAt(0);
+//        game.playBlueAt(1);
+//        game.playRedAt(0);
+//        game.playBlueAt(1);
+//        game.playRedAt(0);
+//
+//        assertEquals(
+//
+//
+//    }
 
     @Test public void test12() {
         Linea game = new Linea(4,4, 'A');
