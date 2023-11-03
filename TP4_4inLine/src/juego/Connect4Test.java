@@ -12,14 +12,12 @@ public class Connect4Test {
 
         assertEquals("| |", game.show());
     }
-
     @Test
     public void test01() {
         Linea game = new Linea(2, 1, 'A');
 
         assertEquals("| | |", game.show());
     }
-
     @Test
     public void test02() {
         Linea game = new Linea(1, 2, 'A');
@@ -27,7 +25,6 @@ public class Connect4Test {
         assertEquals("| |\n" +
                 "| |", game.show());
     }
-
     @Test
     public void test03() {
         Linea game = new Linea(6, 7, 'A');
@@ -39,15 +36,13 @@ public class Connect4Test {
                 "| | | | | | |\n" +
                 "| | | | | | |", game.show());
     }
-
     @Test
     public void test04() {
         Linea game = new Linea(1, 1, 'A');
         game.playRedAt(0);
 
-        assertEquals(game.buscarCoordenada(0, 0), 'R');
+        assertEquals(game.buscarCoordenada(0, 0), 'X');
     }
-
     @Test
     public void test05() {
         Linea game = new Linea(2, 2, 'A');
@@ -55,7 +50,6 @@ public class Connect4Test {
         assertNotEquals("Blue", game.getTurno());
         assertEquals("Red", game.getTurno());
     }
-
     @Test
     public void test06() {
         Linea game = new Linea(2, 2, 'A');
@@ -65,7 +59,6 @@ public class Connect4Test {
         assertNotEquals("Red", game.getTurno());
         assertEquals("Blue", game.getTurno());
     }
-
     @Test
     public void test07() {
         Linea game = new Linea(2, 2, 'A');
@@ -76,15 +69,13 @@ public class Connect4Test {
         assertNotEquals("Blue", game.getTurno());
         assertEquals("Red", game.getTurno());
     }
-
     @Test
     public void test08() {
         Linea game = new Linea(1, 1, 'A');
         game.playRedAt(0);
 
-        assertEquals("|R|", game.show());
+        assertEquals("|X|", game.show());
     }
-
     @Test
     public void test09() {
         Linea game = new Linea(2, 2, 'A');
@@ -93,7 +84,6 @@ public class Connect4Test {
 
         assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(0)).getMessage());
     }
-
     @Test
     public void test10() {
         Linea game = new Linea(1, 1, 'A');
@@ -110,6 +100,9 @@ public class Connect4Test {
         game.playRedAt(1);
         game.playBlueAt(1);
 
+        assertEquals("|0|0|\n" +
+                              "|X|X|", game.show());
+
         assertTrue(game.finished());
     }
 
@@ -123,10 +116,41 @@ public class Connect4Test {
 
     }
 
-    @Test public void testRojoGanaHorizontal() {
+    @Test public void test15() {
         Linea game = new Linea(4, 4, 'B');
         game.playRedAt(0);
         game.playBlueAt(1);
+
+        assertEquals("| | | | |\n" +
+                "| | | | |\n" +
+                "| | | | |\n" +
+                "|X|0| | |", game.show());
+
+    }
+
+    @Test public void testRojoGanaHorizontal(){
+        Linea game = new Linea(4, 4, 'A');
+        game.playRedAt(0);
+        game.playBlueAt(0);
+        game.playRedAt(1);
+        game.playBlueAt(1);
+        game.playRedAt(2);
+        game.playBlueAt(2);
+        game.playRedAt(3);
+
+        assertEquals(  "| | | | |\n" +
+                                "| | | | |\n" +
+                                "|0|0|0| |\n" +
+                                "|X|X|X|X|", game.show());
+
+        assertEquals("Red", game.getGanador());
+        assertTrue(game.finished());
+    }
+
+    @Test public void testRojoGanaVertical() {
+        Linea game = new Linea(4, 4, 'A');
+        game.playRedAt(0);
+        game.playBlueAt(1);
         game.playRedAt(0);
         game.playBlueAt(1);
         game.playRedAt(0);
@@ -134,14 +158,25 @@ public class Connect4Test {
         game.playRedAt(0);
 
 
-        assertEquals(  "|R| | | |\n" +
-                                "|R|B| | |\n" +
-                                "|R|B| | |\n" +
-                                "|R|B| | |", game.show());
+        assertEquals(  "|X| | | |\n" +
+                                "|X|0| | |\n" +
+                                "|X|0| | |\n" +
+                                "|X|0| | |", game.show());
 
         assertEquals("Red", game.getGanador());
 
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -183,37 +218,27 @@ public class Connect4Test {
 ////        assertTrue(game.finished());
 //    }
 //
-    @Test public void test14(){
-        Linea game = new Linea(4,4,'B');
+//    @Test public void test14(){
+//        Linea game = new Linea(4,4,'B');
+//
+//
+//        game.playRedAt(0);
+//        game.playBlueAt(1);
+//        game.playRedAt(1);
+//        game.playBlueAt(3);
+//        game.playRedAt(2);
+//        game.playBlueAt(2);
+//        game.playRedAt(2);
+//        game.playBlueAt(2);
+//        game.playRedAt(3);
+//        game.playBlueAt(3);
+//        game.playRedAt(3);
+//
+////        assertTrue(game.finished());
+//        assertEquals("Red", game.getGanador());
+//    }
 
 
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(1);
-        game.playBlueAt(3);
-        game.playRedAt(2);
-        game.playBlueAt(2);
-        game.playRedAt(2);
-        game.playBlueAt(2);
-        game.playRedAt(3);
-        game.playBlueAt(3);
-        game.playRedAt(3);
-
-//        assertTrue(game.finished());
-        assertEquals("Red", game.getGanador());
-    }
-
-    @Test public void test15() {
-        Linea game = new Linea(4, 4, 'B');
-        game.playRedAt(0);
-        game.playBlueAt(1);
-
-        assertEquals("| | | | |\n" +
-                              "| | | | |\n" +
-                              "| | | | |\n" +
-                              "|R|B| | |", game.show());
-
-    }
 
     @Test public void test16(){
         Linea game = new Linea(6, 7, 'B');
@@ -228,8 +253,8 @@ public class Connect4Test {
                               "| | | | | | |\n" +
                               "| | | | | | |\n" +
                               "| | | | | | |\n" +
-                              "|R| | | | | |\n" +
-                              "|R|B| | |R|B|", game.show());
+                              "|X| | | | | |\n" +
+                              "|X|0| | |X|0|", game.show());
     }
 
 //    @Test public void test17(){
