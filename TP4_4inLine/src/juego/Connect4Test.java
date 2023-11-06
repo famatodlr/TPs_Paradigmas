@@ -7,98 +7,116 @@ import static org.junit.Assert.*;
 public class Connect4Test {
 
     @Test
-    public void test00() {
+    public void testCreaElShow() {
         Linea game = new Linea(1, 1, 'A');
 
         assertEquals("| |", game.show());
     }
     @Test
-    public void test01() {
+    public void testPuedeRecibirMuchasColumnas() {
         Linea game = new Linea(2, 1, 'A');
 
         assertEquals("| | |", game.show());
     }
     @Test
-    public void test02() {
+    public void testPuedeRecibirMucasFilas() {
         Linea game = new Linea(1, 2, 'A');
 
         assertEquals("| |\n" +
-                "| |", game.show());
+                              "| |", game.show());
     }
     @Test
-    public void test03() {
+    public void testPuedeRecibirShowsGrandes() {
         Linea game = new Linea(6, 7, 'A');
         assertEquals("| | | | | | |\n" +
-                "| | | | | | |\n" +
-                "| | | | | | |\n" +
-                "| | | | | | |\n" +
-                "| | | | | | |\n" +
-                "| | | | | | |\n" +
-                "| | | | | | |", game.show());
+                              "| | | | | | |\n" +
+                              "| | | | | | |\n" +
+                              "| | | | | | |\n" +
+                              "| | | | | | |\n" +
+                              "| | | | | | |\n" +
+                              "| | | | | | |", game.show());
     }
     @Test
-    public void test04() {
+    public void testPoneFichaCorrectamente() {
         Linea game = new Linea(1, 1, 'A');
-        game.playRedAt(0);
+        game.playRedAt(1);
 
         assertEquals(game.buscarCoordenada(0, 0), 'X');
     }
-    @Test
-    public void test05() {
+
+    @Test public void testNoPuedoPonerFichasFueraDelTablero(){
+        Linea game = new Linea(1, 1, 'A');
+        assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(2)).getMessage());
+    }
+
+    @Test public void testPuedoPonerFichasEnCualquierColumna(){
+        Linea game = new Linea(2, 1, 'A');
+        game.playRedAt(1);
+        game.playBlueAt(2);
+
+        assertEquals("|X|0|", game.show());
+    }
+
+    @Test public void testNoPuedoPonerFichasEnColumnaNegativa(){
+        Linea game = new Linea(2, 1, 'A');
+        assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(-1)).getMessage());
+    }
+
+    @Test public void testAzulNoPuedeEmpezar() {
         Linea game = new Linea(2, 2, 'A');
-        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(0)).getMessage());
+        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
         assertNotEquals("Blue", game.getTurno());
         assertEquals("Red", game.getTurno());
     }
     @Test
-    public void test06() {
+    public void testRojoNoJuegaDosVeces() {
         Linea game = new Linea(2, 2, 'A');
 
-        game.playRedAt(0);
-        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playRedAt(0)).getMessage());
+        game.playRedAt(1);
+        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
         assertNotEquals("Red", game.getTurno());
         assertEquals("Blue", game.getTurno());
     }
+
     @Test
-    public void test07() {
+    public void testAzulNoJuegaDosVeces() {
         Linea game = new Linea(2, 2, 'A');
 
-        game.playRedAt(0);
-        game.playBlueAt(0);
-        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(0)).getMessage());
-        assertNotEquals("Blue", game.getTurno());
-        assertEquals("Red", game.getTurno());
-    }
-    @Test
-    public void test08() {
-        Linea game = new Linea(1, 1, 'A');
-        game.playRedAt(0);
-
-        assertEquals("|X|", game.show());
-    }
-    @Test
-    public void test09() {
-        Linea game = new Linea(2, 2, 'A');
-        game.playRedAt(0);
-        game.playBlueAt(0);
-
-        assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(0)).getMessage());
-    }
-    @Test
-    public void test10() {
-        Linea game = new Linea(1, 1, 'A');
-        game.playRedAt(0);
-
-        assertTrue(game.finished());
-    }
-
-    @Test
-    public void test11() {
-        Linea game = new Linea(2, 2, 'A');
-        game.playRedAt(0);
-        game.playBlueAt(0);
         game.playRedAt(1);
         game.playBlueAt(1);
+        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(2)).getMessage());
+        assertEquals("Red", game.getTurno());
+        assertNotEquals("Blue", game.getTurno());
+    }
+    @Test
+    public void testNoPuedoPonerFichaEnColumnaLLena() {
+        Linea game = new Linea(2, 2, 'A');
+        game.playRedAt(1);
+        game.playBlueAt(1);
+
+        assertEquals("|0| |\n" +
+                              "|X| |", game.show());
+
+        assertEquals("Red", game.getTurno());
+        assertNotEquals("Blue", game.getTurno());
+
+        assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
+
+        assertEquals("|0| |\n" +
+                              "|X| |", game.show());
+
+        assertEquals("Red", game.getTurno());
+        assertNotEquals("Blue", game.getTurno());
+
+    }
+
+    @Test
+    public void testJuegoTerminaConElTableroLLeno() {
+        Linea game = new Linea(2, 2, 'A');
+        game.playRedAt(1);
+        game.playBlueAt(1);
+        game.playRedAt(2);
+        game.playBlueAt(2);
 
         assertEquals("|0|0|\n" +
                               "|X|X|", game.show());
@@ -116,27 +134,15 @@ public class Connect4Test {
 
     }
 
-    @Test public void test15() {
-        Linea game = new Linea(4, 4, 'B');
-        game.playRedAt(0);
-        game.playBlueAt(1);
-
-        assertEquals("| | | | |\n" +
-                "| | | | |\n" +
-                "| | | | |\n" +
-                "|X|0| | |", game.show());
-
-    }
-
-    @Test public void testRojoGanaHorizontal(){
+    @Test public void testRojoGanaHorizontalEnModoA(){
         Linea game = new Linea(4, 4, 'A');
-        game.playRedAt(0);
-        game.playBlueAt(0);
         game.playRedAt(1);
         game.playBlueAt(1);
         game.playRedAt(2);
         game.playBlueAt(2);
         game.playRedAt(3);
+        game.playBlueAt(3);
+        game.playRedAt(4);
 
         assertEquals(  "| | | | |\n" +
                                 "| | | | |\n" +
@@ -147,15 +153,15 @@ public class Connect4Test {
         assertTrue(game.finished());
     }
 
-    @Test public void testRojoGanaVertical() {
+    @Test public void testRojoGanaVerticalEnModoA() {
         Linea game = new Linea(4, 4, 'A');
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(1);
 
 
         assertEquals(  "|X| | | |\n" +
@@ -164,125 +170,140 @@ public class Connect4Test {
                                 "|X|0| | |", game.show());
 
         assertEquals("Red", game.getGanador());
-
     }
+    @Test public void testRojoGanaDiagonalEnModoB(){
+        Linea game = new Linea(4,4,'B');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    @Test public void test12() {
-//        Linea game = new Linea(4,4, 'A');
-//        game.playRedAt(2);
-//        game.playBlueAt(1);
-//        game.playRedAt(0);
-//        game.playBlueAt(1);
-//        game.playRedAt(0);
-//        game.playBlueAt(1);
-//        game.playRedAt(0);
-//        game.playBlueAt(1);
-//
-//
-//
-////        assertTrue(game.finished());
-//    }
-//
-//    @Test public void test13(){
-//        Linea game = new Linea(4,4,'A');
-//        game.playRedAt(0);
-//        game.playBlueAt(0);
-//        game.playRedAt(1);
-//        game.playBlueAt(1);
-//        game.playRedAt(2);
-//        game.playBlueAt(2);
-//        game.playRedAt(3);
-//
-////        assertTrue(game.finished());
-//    }
-//
-//    @Test public void test14(){
-//        Linea game = new Linea(4,4,'B');
-//
-//
-//        game.playRedAt(0);
-//        game.playBlueAt(1);
-//        game.playRedAt(1);
-//        game.playBlueAt(3);
-//        game.playRedAt(2);
-//        game.playBlueAt(2);
-//        game.playRedAt(2);
-//        game.playBlueAt(2);
-//        game.playRedAt(3);
-//        game.playBlueAt(3);
-//        game.playRedAt(3);
-//
-////        assertTrue(game.finished());
-//        assertEquals("Red", game.getGanador());
-//    }
-
-
-
-    @Test public void test16(){
-        Linea game = new Linea(6, 7, 'B');
-        game.playRedAt(0);
-        game.playBlueAt(1);
-        game.playRedAt(0);
-        game.playBlueAt(5);
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(2);
+        game.playBlueAt(4);
+        game.playRedAt(3);
+        game.playBlueAt(3);
+        game.playRedAt(3);
+        game.playBlueAt(3);
+        game.playRedAt(4);
+        game.playBlueAt(4);
         game.playRedAt(4);
 
-        assertEquals( "| | | | | | |\n" +
-                              "| | | | | | |\n" +
-                              "| | | | | | |\n" +
-                              "| | | | | | |\n" +
-                              "| | | | | | |\n" +
-                              "|X| | | | | |\n" +
-                              "|X|0| | |X|0|", game.show());
+        assertEquals(  "| | |0|X|\n" +
+                                "| | |X|0|\n" +
+                                "| |X|0|X|\n" +
+                                "|X|0|X|0|", game.show());
+
+        assertTrue(game.finished());
+        assertEquals("Red", game.getGanador());
     }
 
-//    @Test public void test17(){
-//        Linea game = new Linea(6, 7, 'A');
-//        game.playRedAt(0);
-//        game.playBlueAt(1);
-//        game.playRedAt(0);
-//        game.playBlueAt(5);
-//        game.playRedAt(4);
-//        game.playBlueAt(4);
-//        game.playRedAt(0);
-//        game.playBlueAt(4);
-//        game.playRedAt(0);
-//
-//        assertEquals(  "| | | | | | |\n" +
-//                                "| | | | | | |\n" +
-//                                "| | | | | | |\n" +
-//                                "|R| | | | | |\n" +
-//                                "|R| | | |B| |\n" +
-//                                "|R| | | |B| |\n" +
-//                                "|R|B| | |R|B|", game.show());
-//
-//        assertEquals("Red", game.getGanador());
-//        assertTrue(game.finished());
-//
-//
-//    }
+    @Test public void testRojoGanaDiagonalInvertidoEnModoB() {
+        Linea game = new Linea(4, 4, 'B');
+
+        game.playRedAt(4);
+        game.playBlueAt(3);
+        game.playRedAt(3);
+        game.playBlueAt(1);
+        game.playRedAt(2);
+        game.playBlueAt(2);
+        game.playRedAt(2);
+        game.playBlueAt(2);
+        game.playRedAt(1);
+        game.playBlueAt(1);
+        game.playRedAt(1);
+
+        assertEquals("|X|0| | |\n" +
+                              "|0|X| | |\n" +
+                              "|X|0|X| |\n" +
+                              "|0|X|0|X|", game.show());
+
+        assertTrue(game.finished());
+        assertEquals("Red", game.getGanador());
+    }
+
+    @Test public void testModalidadCEnVertical(){
+        Linea game = new Linea(4, 4, 'C');
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(1);
 
 
+        assertEquals(  "|X| | | |\n" +
+                                "|X|0| | |\n" +
+                                "|X|0| | |\n" +
+                                "|X|0| | |", game.show());
 
+        assertEquals("Red", game.getGanador());
+    }
+
+    @Test public void testModalidadCEnHorizontal(){
+        Linea game = new Linea(4, 4, 'C');
+        game.playRedAt(1);
+        game.playBlueAt(1);
+        game.playRedAt(2);
+        game.playBlueAt(2);
+        game.playRedAt(3);
+        game.playBlueAt(3);
+        game.playRedAt(4);
+
+        assertEquals(  "| | | | |\n" +
+                                "| | | | |\n" +
+                                "|0|0|0| |\n" +
+                                "|X|X|X|X|", game.show());
+
+        assertEquals("Red", game.getGanador());
+        assertTrue(game.finished());
+    }
+
+    @Test public void testModalidadCEnDiagonal(){
+        Linea game = new Linea(4,4,'C');
+
+
+        game.playRedAt(1);
+        game.playBlueAt(2);
+        game.playRedAt(2);
+        game.playBlueAt(4);
+        game.playRedAt(3);
+        game.playBlueAt(3);
+        game.playRedAt(3);
+        game.playBlueAt(3);
+        game.playRedAt(4);
+        game.playBlueAt(4);
+        game.playRedAt(4);
+
+        assertEquals(  "| | |0|X|\n" +
+                                "| | |X|0|\n" +
+                                "| |X|0|X|\n" +
+                                "|X|0|X|0|", game.show());
+
+        assertTrue(game.finished());
+        assertEquals("Red", game.getGanador());
+    }
+
+    @Test public void testModalidadCEnDiagonalInvertido() {
+        Linea game = new Linea(4, 4, 'C');
+
+        game.playRedAt(4);
+        game.playBlueAt(3);
+        game.playRedAt(3);
+        game.playBlueAt(1);
+        game.playRedAt(2);
+        game.playBlueAt(2);
+        game.playRedAt(2);
+        game.playBlueAt(2);
+        game.playRedAt(1);
+        game.playBlueAt(1);
+        game.playRedAt(1);
+
+        assertEquals("|X|0| | |\n" +
+                              "|0|X| | |\n" +
+                              "|X|0|X| |\n" +
+                              "|0|X|0|X|", game.show());
+
+        assertTrue(game.finished());
+        assertEquals("Red", game.getGanador());
+    }
 }
