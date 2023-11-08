@@ -21,9 +21,7 @@ public class Linea {
         this.ganador = "Nadie";
 
         tablero = new ArrayList<>();
-        for (int j = 0; j < base; j++) {
-            tablero.add(new ArrayList<>());
-        }
+        IntStream.range(0, base).forEach(j -> tablero.add(new ArrayList<>()));
     }
 
     public ModosDeJuego chooseMode(char jugabilidad) {
@@ -72,10 +70,6 @@ public class Linea {
     }
 
     public void isValid(int posicion, Turnos turnoEsperado) {
-//        if (turno.equals("Blue")) {
-//            throw new RuntimeException(NO_ES_TU_TURNO);
-//        }
-
         turnoEsperado.chequeoTurno(turno);
 
         if (posicion >= base) {
@@ -100,25 +94,22 @@ public class Linea {
     }
 
     private void playAt(int posicion, char player, Turnos turnoEsperado) {
-        jugabilidad.isFinished();
 
         posicion = posicion - 1;
         this.isValid(posicion, turnoEsperado);
 
         tablero.get(posicion).add(player);
-        turno = turno.cambiarTurno();
-
-//        finished = chequeoTableroCompleto() || isWinner(player);
 
         if (chequeoTableroCompleto()) {
             finished = true;
-            ganador = "Nadie";
+            ganador = "Empate";
         }
-        else if (isWinner(player)) {
+        if (isWinner(player)) {
             finished = true;
-            ganador = turnoEsperado.getPlayer();
+            ganador = turno.getPlayer();
 
         }
+        turno = turno.cambiarTurno();
     }
 
     public boolean isWinner(char player) {
@@ -134,21 +125,6 @@ public class Linea {
     }
 
     public boolean horizontalWin(char player) {
-//        for (int fila = 0; fila < altura; fila++) {
-//            int contador = 0;
-//
-//            for (int columna = 0; columna < base; columna++) {
-//                if (buscarCoordenada(columna, fila) == player) {
-//                    contador++;
-//                    if (contador == 4) {
-//                        return true;
-//                    }
-//                } else {
-//                    contador = 0;
-//                }
-//            }
-//        }
-//        return false;
          return IntStream.range(0, altura)
                     .anyMatch(fila -> IntStream.range(0, base - 3)
                     .mapToObj(start -> IntStream.range(start, start + 4)
@@ -162,50 +138,18 @@ public class Linea {
     }
 
     public boolean diagonalWin(char player){
-//        int contador = 0;
-//        for (int columna = - altura ; columna < base; columna++) {
-//            for (int fila = 0; fila < altura + 1; fila++) {
-//                if (buscarCoordenada(columna + fila, fila) == player) {
-//                    contador++;
-//                    if (contador == 4) {
-//                        return true;
-//                    }
-//                } else {
-//                    contador = 0;
-//                }
-//            }
-//        }
-//
-//        return false;
-            return IntStream.rangeClosed(-altura, base)
-                    .anyMatch(columna -> IntStream.range(0, altura + 1)
-                            .filter(fila -> columna + fila >= 0 && columna + fila < base)
-                            .allMatch(fila -> buscarCoordenada(columna + fila, fila) == player)
-                    );
-
+        return IntStream.rangeClosed(-altura, base)
+                .anyMatch(columna -> IntStream.range(0, altura + 1)
+                        .filter(fila -> columna + fila >= 0 && columna + fila < base)
+                        .allMatch(fila -> buscarCoordenada(columna + fila, fila) == player)
+                );
     }
 
     public boolean reverseDiagonalWin(char player) {
-//        int contador = 0;
-//        for (int columna = base ; columna > - altura; columna--) {
-//            for (int fila = altura; fila >= 0; fila--) {
-//                if (buscarCoordenada(columna + (altura - fila), fila) == player) {
-//                    contador++;
-//                    if (contador == 4) {
-//                        return true;
-//                    }
-//                } else {
-//                    contador = 0;
-//                }
-//            }
-//        }
-//        return false;
-            return IntStream.rangeClosed(base, -altura)
-                    .anyMatch(columna -> IntStream.rangeClosed(0, altura)
-                            .filter(fila -> columna + (altura - fila) >= 0 && columna + (altura - fila) < base)
-                            .allMatch(fila -> buscarCoordenada(columna + (altura - fila), fila) == player)
-                    );
-
-
+        return IntStream.rangeClosed(base, -altura)
+                .anyMatch(columna -> IntStream.rangeClosed(0, altura)
+                        .filter(fila -> columna + (altura - fila) >= 0 && columna + (altura - fila) < base)
+                        .allMatch(fila -> buscarCoordenada(columna + (altura - fila), fila) == player)
+                );
     }
 }
