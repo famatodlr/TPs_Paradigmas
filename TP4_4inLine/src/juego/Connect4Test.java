@@ -65,8 +65,8 @@ public class Connect4Test {
     @Test public void testAzulNoPuedeEmpezar() {
         Linea game = new Linea(2, 2, 'A');
         assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
-        assertNotEquals("Blue", game.getTurno());
-        assertEquals("Red", game.getTurno());
+        assertNotEquals(TurnoAzul.class, game.getTurno().getClass());
+        assertEquals(TurnoRojo.class, game.getTurno().getClass());
     }
     @Test
     public void testRojoNoJuegaDosVeces() {
@@ -74,8 +74,8 @@ public class Connect4Test {
 
         game.playRedAt(1);
         assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
-        assertNotEquals("Red", game.getTurno());
-        assertEquals("Blue", game.getTurno());
+        assertNotEquals(TurnoRojo.class, game.getTurno().getClass());
+        assertEquals(TurnoAzul.class, game.getTurno().getClass());
     }
 
     @Test
@@ -85,8 +85,8 @@ public class Connect4Test {
         game.playRedAt(1);
         game.playBlueAt(1);
         assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(2)).getMessage());
-        assertEquals("Red", game.getTurno());
-        assertNotEquals("Blue", game.getTurno());
+        assertEquals(TurnoRojo.class, game.getTurno().getClass());
+        assertNotEquals(TurnoRojo.class, game.getTurno().getClass());
     }
     @Test
     public void testNoPuedoPonerFichaEnColumnaLLena() {
@@ -97,16 +97,16 @@ public class Connect4Test {
         assertEquals("|0| |\n" +
                               "|X| |", game.show());
 
-        assertEquals("Red", game.getTurno());
-        assertNotEquals("Blue", game.getTurno());
+        assertEquals(TurnoRojo.class, game.getTurno().getClass());
+        assertNotEquals(TurnoAzul.class, game.getTurno().getClass());
 
         assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
 
         assertEquals("|0| |\n" +
                               "|X| |", game.show());
 
-        assertEquals("Red", game.getTurno());
-        assertNotEquals("Blue", game.getTurno());
+        assertEquals(TurnoRojo.class, game.getTurno().getClass());
+        assertNotEquals(TurnoAzul.class, game.getTurno().getClass());
 
     }
 

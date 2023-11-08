@@ -1,6 +1,7 @@
 package juego;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Linea {
     public static String NO_ES_TU_TURNO = "No es tu turno";
@@ -8,22 +9,33 @@ public class Linea {
     private ArrayList<ArrayList<Character>> tablero;
     private int base;
     private int altura;
-    private char jugabilidad;
+    private ModosDeJuego jugabilidad;
     private boolean finished;
-    private String turno;
+    private Turnos turno;
     private String ganador;
+
+    private static ArrayList<Character> gameModesChars = new ArrayList<>(Arrays.asList('A', 'B', 'C'));
+
+    private static ArrayList<ModosDeJuego> gameModes = new ArrayList<>(Arrays.asList(new OptionA(), new OptionB(), new OptionC()));
+
 
     public Linea(int base, int altura, char jugabilidad) {
         this.base = base;
         this.altura = altura;
-        this.jugabilidad = jugabilidad;
-        this.turno = "Red";
+        this.jugabilidad =  chooseMode( jugabilidad );
+        this.turno = new TurnoRojo();
         this.ganador = "Nadie";
 
         tablero = new ArrayList<>();
         for (int j = 0; j < base; j++) {
             tablero.add(new ArrayList<>());
         }
+    }
+
+    public ModosDeJuego chooseMode(char jugabilidad) {
+        int index = gameModesChars.indexOf(jugabilidad);
+        return gameModes.get(index);
+
     }
 
     public String show() {
@@ -57,7 +69,7 @@ public class Linea {
         return tablero.get(x).get(y);
     }
 
-    public String getTurno() {
+    public Turnos getTurno() {
         return turno;
     }
 
@@ -72,6 +84,8 @@ public class Linea {
             throw new RuntimeException(NO_ES_TU_TURNO);
         }
 
+        turno.chequeoTurno( turno );
+
         if (posicion >= base) {
             throw new RuntimeException(JUGADA_NO_VALIDA);
         }
@@ -85,10 +99,10 @@ public class Linea {
         }
 
         tablero.get(posicion).add('X');
-        turno = "Blue";
+        turno.cambiarTurno();
         finished = chequeoTableroCompleto();
 
-        if ( isWinner('X', jugabilidad)) {
+        if ( isWinner('X')) {
             finished = true;
             ganador = "Red";
         }
@@ -112,30 +126,20 @@ public class Linea {
         }
 
         tablero.get(posicion).add('0');
-        turno = "Red";
+        turno.cambiarTurno();
         finished = chequeoTableroCompleto();
 
-        if (isWinner('0', jugabilidad)) {
+        if (isWinner('0')) {
             finished = true;
             ganador = "Blue";
         }
 
     }
 
-    public boolean isWinner(char player, char jugabilidad) {
-        if (jugabilidad == 'A') {
-            return horizontalWin(player) || verticalWin(player);
-        }
-        if (jugabilidad == 'B') {
-            return diagonalWin(player) || reverseDiagonalWin(player);
-        }
-
-        if (jugabilidad == 'C'){
-            return horizontalWin(player) || verticalWin(player) || diagonalWin(player) || reverseDiagonalWin(player);
-        }
-        return false;
+    public boolean isWinner(char player) {
+        return jugabilidad.isWinner( this , player);
     }
-    private boolean verticalWin(char player) {
+    public boolean verticalWin(char player) {
         int contador = 0;
         for (int columna = 0; columna < base; columna++) {
             for (int fila = tablero.get(columna).size() - 1; fila > -1; fila--) {

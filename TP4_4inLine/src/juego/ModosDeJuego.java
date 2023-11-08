@@ -1,6 +1,9 @@
 package juego;
 
-public abstract class ModosDeJuego {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    public abstract boolean isWinner();
+public abstract class ModosDeJuego {
+    public abstract boolean isWinner( Linea juego , char player);
+
 }
