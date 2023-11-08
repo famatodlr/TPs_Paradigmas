@@ -2,6 +2,7 @@ package juego;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Linea {
     public static String NO_ES_TU_TURNO = "No es tu turno";
@@ -77,14 +78,10 @@ public class Linea {
         return ganador;
     }
 
-
-    public void playRedAt(int posicion) {
-        posicion = posicion - 1;
-        if (turno.equals("Blue")) {
-            throw new RuntimeException(NO_ES_TU_TURNO);
-        }
-
-        turno.chequeoTurno( turno );
+    public void isValid(int posicion) {
+//        if (turno.equals("Blue")) {
+//            throw new RuntimeException(NO_ES_TU_TURNO);
+//        }
 
         if (posicion >= base) {
             throw new RuntimeException(JUGADA_NO_VALIDA);
@@ -97,42 +94,29 @@ public class Linea {
         if (tablero.get(posicion).size() == altura) {
             throw new RuntimeException(JUGADA_NO_VALIDA);
         }
+    }
+
+
+
+
+    public void playRedAt(int posicion) {
+        posicion = posicion - 1;
+        this.isValid(posicion);
+
 
         tablero.get(posicion).add('X');
         turno.cambiarTurno();
-        finished = chequeoTableroCompleto();
-
-        if ( isWinner('X')) {
-            finished = true;
-            ganador = "Red";
-        }
+        finished = chequeoTableroCompleto() || isWinner('X');
     }
 
     public void playBlueAt(int posicion) {
         posicion = posicion - 1;
-        if (turno.equals("Red")) {
-            throw new RuntimeException(NO_ES_TU_TURNO);
-        }
+        this.isValid(posicion);
 
-        if (posicion >= base) {
-            throw new RuntimeException(JUGADA_NO_VALIDA);
-        }
-        if (posicion < 0) {
-            throw new RuntimeException(JUGADA_NO_VALIDA);
-        }
-
-        if (tablero.get(posicion).size() == altura) {
-            throw new RuntimeException(JUGADA_NO_VALIDA);
-        }
 
         tablero.get(posicion).add('0');
         turno.cambiarTurno();
-        finished = chequeoTableroCompleto();
-
-        if (isWinner('0')) {
-            finished = true;
-            ganador = "Blue";
-        }
+        finished = chequeoTableroCompleto() || isWinner('0');
 
     }
 
@@ -140,74 +124,91 @@ public class Linea {
         return jugabilidad.isWinner( this , player);
     }
     public boolean verticalWin(char player) {
-        int contador = 0;
-        for (int columna = 0; columna < base; columna++) {
-            for (int fila = tablero.get(columna).size() - 1; fila > -1; fila--) {
-                if (buscarCoordenada(columna, fila) == player) {
-                    contador++;
-                    if (contador == 4) {
-                        return true;
-                    }
-                } else {
-                    contador = 0;
-                }
-            }
+        return IntStream.range(0, base)
+                .anyMatch(columna -> IntStream.range(0, tablero.get(columna).size() - 3)
+                .anyMatch(fila -> IntStream.range(0, 4)
+                .allMatch(offset -> buscarCoordenada(columna, fila + offset) == player)
+                )
+                );
+    }
 
-        }
-        return false;
-     }
 
 
     public boolean horizontalWin(char player) {
-        for (int fila = 0; fila < altura; fila++) {
-            int contador = 0;
-
-            for (int columna = 0; columna < base; columna++) {
-                if (buscarCoordenada(columna, fila) == player) {
-                    contador++;
-                    if (contador == 4) {
-                        return true;
-                    }
-                } else {
-                    contador = 0;
-                }
-            }
-        }
-        return false;
+//        for (int fila = 0; fila < altura; fila++) {
+//            int contador = 0;
+//
+//            for (int columna = 0; columna < base; columna++) {
+//                if (buscarCoordenada(columna, fila) == player) {
+//                    contador++;
+//                    if (contador == 4) {
+//                        return true;
+//                    }
+//                } else {
+//                    contador = 0;
+//                }
+//            }
+//        }
+//        return false;
+         return IntStream.range(0, altura)
+                    .anyMatch(fila -> IntStream.range(0, base - 3)
+                    .mapToObj(start -> IntStream.range(start, start + 4)
+                    .mapToObj(columna -> buscarCoordenada(columna, fila) == player)
+                    .reduce(Boolean::logicalAnd)
+                    .orElse(false)
+                    )
+                    .reduce(Boolean::logicalOr)
+                    .orElse(false)
+                    );
     }
 
     public boolean diagonalWin(char player){
-        int contador = 0;
-        for (int columna = - altura ; columna < base; columna++) {
-            for (int fila = 0; fila < altura + 1; fila++) {
-                if (buscarCoordenada(columna + fila, fila) == player) {
-                    contador++;
-                    if (contador == 4) {
-                        return true;
-                    }
-                } else {
-                    contador = 0;
-                }
-            }
-        }
+//        int contador = 0;
+//        for (int columna = - altura ; columna < base; columna++) {
+//            for (int fila = 0; fila < altura + 1; fila++) {
+//                if (buscarCoordenada(columna + fila, fila) == player) {
+//                    contador++;
+//                    if (contador == 4) {
+//                        return true;
+//                    }
+//                } else {
+//                    contador = 0;
+//                }
+//            }
+//        }
+//
+//        return false;
 
-        return false;
+            return IntStream.rangeClosed(-altura, base)
+                    .anyMatch(columna -> IntStream.range(0, altura + 1)
+                            .filter(fila -> columna + fila >= 0 && columna + fila < base)
+                            .allMatch(fila -> buscarCoordenada(columna + fila, fila) == player)
+                    );
+
     }
 
     public boolean reverseDiagonalWin(char player) {
-        int contador = 0;
-        for (int columna = base ; columna > - altura; columna--) {
-            for (int fila = altura; fila >= 0; fila--) {
-                if (buscarCoordenada(columna + (altura - fila), fila) == player) {
-                    contador++;
-                    if (contador == 4) {
-                        return true;
-                    }
-                } else {
-                    contador = 0;
-                }
-            }
-        }
-        return false;
+//        int contador = 0;
+//        for (int columna = base ; columna > - altura; columna--) {
+//            for (int fila = altura; fila >= 0; fila--) {
+//                if (buscarCoordenada(columna + (altura - fila), fila) == player) {
+//                    contador++;
+//                    if (contador == 4) {
+//                        return true;
+//                    }
+//                } else {
+//                    contador = 0;
+//                }
+//            }
+//        }
+//        return false;
+
+            return IntStream.rangeClosed(base, -altura)
+                    .anyMatch(columna -> IntStream.rangeClosed(0, altura)
+                            .filter(fila -> columna + (altura - fila) >= 0 && columna + (altura - fila) < base)
+                            .allMatch(fila -> buscarCoordenada(columna + (altura - fila), fila) == player)
+                    );
+
+
     }
 }

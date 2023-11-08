@@ -1,11 +1,13 @@
 package juego;
 
 public class TurnoAzul extends Turnos {
-    public Turnos cambiarTurno() {
-        return new TurnoRojo();
+    public void cambiarTurno() {
+        new TurnoRojo();
     }
 
     public void chequeoTurno(Turnos turno) {
+        throw new RuntimeException("No es tu turno");
+
 
     }
 }
