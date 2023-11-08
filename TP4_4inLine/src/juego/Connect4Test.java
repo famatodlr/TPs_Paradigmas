@@ -124,16 +124,6 @@ public class Connect4Test {
         assertTrue(game.finished());
     }
 
-    @Test public void testTablero4x4(){
-        Linea game = new Linea(4,4, 'A');
-
-        assertEquals(  "| | | | |\n" +
-                                "| | | | |\n" +
-                                "| | | | |\n" +
-                                "| | | | |", game.show());
-
-    }
-
     @Test public void testRojoGanaHorizontalEnModoA(){
         Linea game = new Linea(4, 4, 'A');
         game.playRedAt(1);
@@ -149,7 +139,7 @@ public class Connect4Test {
                                 "|0|0|0| |\n" +
                                 "|X|X|X|X|", game.show());
 
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
         assertTrue(game.finished());
     }
 
@@ -173,8 +163,8 @@ public class Connect4Test {
                                 "|0|0|0|0|\n" +
                                 "|X|X|X|0|", game.show());
 
-//        assertEquals("Blue", game.getGanador());
         assertTrue(game.finished());
+        assertEquals("Blue", game.getGanador());
     }
 
     @Test public void testRojoGanaVerticalEnModoA() {
@@ -193,7 +183,7 @@ public class Connect4Test {
                                 "|X|0| | |\n" +
                                 "|X|0| | |", game.show());
 
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
         assertTrue(game.finished());
     }
 
@@ -267,7 +257,7 @@ public class Connect4Test {
                               "|0|X|0|X|", game.show());
 
         assertTrue(game.finished());
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
     }
 
     @Test public void testModalidadCEnVertical(){
@@ -286,7 +276,7 @@ public class Connect4Test {
                                 "|X|0| | |\n" +
                                 "|X|0| | |", game.show());
 
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
         assertTrue(game.finished());
     }
 
@@ -305,7 +295,7 @@ public class Connect4Test {
                                 "|0|0|0| |\n" +
                                 "|X|X|X|X|", game.show());
 
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
         assertTrue(game.finished());
     }
 
@@ -331,7 +321,7 @@ public class Connect4Test {
                                 "|X|0|X|0|", game.show());
 
         assertTrue(game.finished());
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
     }
 
     @Test public void testModalidadCEnDiagonalInvertido() {
@@ -355,6 +345,15 @@ public class Connect4Test {
                               "|0|X|0|X|", game.show());
 
         assertTrue(game.finished());
-//        assertEquals("Red", game.getGanador());
+        assertEquals("Red", game.getGanador());
+    }
+
+    @Test public void testNoAceptaJugdasCuandoElJuegoTermina(){
+        Linea game = new Linea(1,1,'A');
+        game.playRedAt(1);
+        assertEquals( Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
+        assertEquals(TurnoAzul.class, game.getTurno().getClass());
+        assertFalse(game.finished());
+
     }
 }

@@ -1,7 +1,6 @@
 package juego;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Linea {
@@ -93,22 +92,10 @@ public class Linea {
     }
 
     public void playRedAt(int posicion) {
-//        posicion = posicion - 1;
-//        this.isValid(posicion, new TurnoRojo());
-//
-//        tablero.get(posicion).add('X');
-//        turno = turno.cambiarTurno();
-//        finished = chequeoTableroCompleto() || isWinner('X');
         playAt(posicion, 'X', new TurnoRojo());
     }
 
     public void playBlueAt(int posicion) {
-//        posicion = posicion - 1;
-//        this.isValid(posicion, new TurnoAzul());
-//
-//        tablero.get(posicion).add('0');
-//        turno = turno.cambiarTurno();
-//        finished = chequeoTableroCompleto() || isWinner('0');
         playAt(posicion, '0', new TurnoAzul());
     }
 
@@ -121,19 +108,17 @@ public class Linea {
         tablero.get(posicion).add(player);
         turno = turno.cambiarTurno();
 
-        finished = chequeoTableroCompleto() || isWinner(player);
+//        finished = chequeoTableroCompleto() || isWinner(player);
 
-//        if (chequeoTableroCompleto()) {
-//            finished = true;
-//            ganador = "Nadie";
-//            jugabilidad = new GameFinished();
-//        }
-//        else if (isWinner(player)) {
-//            finished = true;
-//            ganador = turno.getPlayer();
-//            jugabilidad = new GameFinished();
-//
-//        }
+        if (chequeoTableroCompleto()) {
+            finished = true;
+            ganador = "Nadie";
+        }
+        else if (isWinner(player)) {
+            finished = true;
+            ganador = turnoEsperado.getPlayer();
+
+        }
     }
 
     public boolean isWinner(char player) {

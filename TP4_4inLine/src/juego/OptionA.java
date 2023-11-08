@@ -6,6 +6,6 @@ public class OptionA extends ModosDeJuego {
     }
 
     public void isFinished() {
-        return;
+
     }
 }
