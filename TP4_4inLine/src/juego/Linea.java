@@ -32,18 +32,17 @@ public class Linea {
 
     public String show() {
         StringBuilder mostrar = new StringBuilder();
-        for (int i = altura - 1; i >= 0; i--) {
+        IntStream.range(0, altura).forEach(i -> {
             mostrar.append("|");
-            for (int j = 0; j < base; j++) {
-                mostrar.append(buscarCoordenada(j, i));
+            IntStream.range(0, base).forEach(j -> {
+                mostrar.append(buscarCoordenada(j, altura - i - 1));
                 mostrar.append("|");
-            }
+            });
             mostrar.append("\n");
-        }
-
+        });
         mostrar.delete(mostrar.length() - 1, mostrar.length());
-
         return mostrar.toString();
+
     }
 
     public boolean finished() {
@@ -115,41 +114,19 @@ public class Linea {
     public boolean isWinner(char player) {
         return jugabilidad.isWinner( this , player);
     }
-    public boolean verticalWin(char player) {
-        return IntStream.range(0, base)
-                .anyMatch(columna -> IntStream.range(0, tablero.get(columna).size() - 3)
-                .anyMatch(fila -> IntStream.range(0, 4)
-                .allMatch(offset -> buscarCoordenada(columna, fila + offset) == player)
-                )
-                );
+    public boolean checkWin(char player, int dx, int dy) {
+        return IntStream.range(0, base * altura)
+                .anyMatch(index -> {
+                    int columna = index % base;
+                    int fila = index / base;
+
+                    return IntStream.range(0, 4)
+                            .allMatch(i -> {
+                                int x = columna + i * dx;
+                                int y = fila + i * dy;
+                                return x >= 0 && x < base && y >= 0 && y < altura && buscarCoordenada(x, y) == player;
+                            });
+                });
     }
 
-    public boolean horizontalWin(char player) {
-         return IntStream.range(0, altura)
-                    .anyMatch(fila -> IntStream.range(0, base - 3)
-                    .mapToObj(start -> IntStream.range(start, start + 4)
-                    .mapToObj(columna -> buscarCoordenada(columna, fila) == player)
-                    .reduce(Boolean::logicalAnd)
-                    .orElse(false)
-                    )
-                    .reduce(Boolean::logicalOr)
-                    .orElse(false)
-                    );
-    }
-
-    public boolean diagonalWin(char player){
-        return IntStream.rangeClosed(-altura, base)
-                .anyMatch(columna -> IntStream.range(0, altura + 1)
-                        .filter(fila -> columna + fila >= 0 && columna + fila < base)
-                        .allMatch(fila -> buscarCoordenada(columna + fila, fila) == player)
-                );
-    }
-
-    public boolean reverseDiagonalWin(char player) {
-        return IntStream.rangeClosed(base, -altura)
-                .anyMatch(columna -> IntStream.rangeClosed(0, altura)
-                        .filter(fila -> columna + (altura - fila) >= 0 && columna + (altura - fila) < base)
-                        .allMatch(fila -> buscarCoordenada(columna + (altura - fila), fila) == player)
-                );
-    }
 }
