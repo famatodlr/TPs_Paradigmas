@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Linea {
-    public static String NO_ES_TU_TURNO = "No es tu turno";
     public static String JUGADA_NO_VALIDA = "Jugada no valida";
     private ArrayList<ArrayList<Character>> tablero;
     private int base;
@@ -14,11 +13,6 @@ public class Linea {
     private boolean finished;
     private Turnos turno;
     private String ganador;
-
-    private static ArrayList<Character> gameModesChars = new ArrayList<>(Arrays.asList('A', 'B', 'C'));
-
-    private static ArrayList<ModosDeJuego> gameModes = new ArrayList<>(Arrays.asList(new OptionA(), new OptionB(), new OptionC()));
-
 
     public Linea(int base, int altura, char jugabilidad) {
         this.base = base;
@@ -34,8 +28,8 @@ public class Linea {
     }
 
     public ModosDeJuego chooseMode(char jugabilidad) {
-        int index = gameModesChars.indexOf(jugabilidad);
-        return gameModes.get(index);
+        int index = ModosDeJuego.gameModesChars.indexOf(jugabilidad);
+        return ModosDeJuego.gameModes.get(index);
 
     }
 
@@ -78,10 +72,12 @@ public class Linea {
         return ganador;
     }
 
-    public void isValid(int posicion) {
+    public void isValid(int posicion, Turnos turnoEsperado) {
 //        if (turno.equals("Blue")) {
 //            throw new RuntimeException(NO_ES_TU_TURNO);
 //        }
+
+        turnoEsperado.chequeoTurno(turno);
 
         if (posicion >= base) {
             throw new RuntimeException(JUGADA_NO_VALIDA);
@@ -96,28 +92,48 @@ public class Linea {
         }
     }
 
-
-
-
     public void playRedAt(int posicion) {
-        posicion = posicion - 1;
-        this.isValid(posicion);
-
-
-        tablero.get(posicion).add('X');
-        turno.cambiarTurno();
-        finished = chequeoTableroCompleto() || isWinner('X');
+//        posicion = posicion - 1;
+//        this.isValid(posicion, new TurnoRojo());
+//
+//        tablero.get(posicion).add('X');
+//        turno = turno.cambiarTurno();
+//        finished = chequeoTableroCompleto() || isWinner('X');
+        playAt(posicion, 'X', new TurnoRojo());
     }
 
     public void playBlueAt(int posicion) {
+//        posicion = posicion - 1;
+//        this.isValid(posicion, new TurnoAzul());
+//
+//        tablero.get(posicion).add('0');
+//        turno = turno.cambiarTurno();
+//        finished = chequeoTableroCompleto() || isWinner('0');
+        playAt(posicion, '0', new TurnoAzul());
+    }
+
+    private void playAt(int posicion, char player, Turnos turnoEsperado) {
+        jugabilidad.isFinished();
+
         posicion = posicion - 1;
-        this.isValid(posicion);
+        this.isValid(posicion, turnoEsperado);
 
+        tablero.get(posicion).add(player);
+        turno = turno.cambiarTurno();
 
-        tablero.get(posicion).add('0');
-        turno.cambiarTurno();
-        finished = chequeoTableroCompleto() || isWinner('0');
+        finished = chequeoTableroCompleto() || isWinner(player);
 
+//        if (chequeoTableroCompleto()) {
+//            finished = true;
+//            ganador = "Nadie";
+//            jugabilidad = new GameFinished();
+//        }
+//        else if (isWinner(player)) {
+//            finished = true;
+//            ganador = turno.getPlayer();
+//            jugabilidad = new GameFinished();
+//
+//        }
     }
 
     public boolean isWinner(char player) {
@@ -131,8 +147,6 @@ public class Linea {
                 )
                 );
     }
-
-
 
     public boolean horizontalWin(char player) {
 //        for (int fila = 0; fila < altura; fila++) {
@@ -178,7 +192,6 @@ public class Linea {
 //        }
 //
 //        return false;
-
             return IntStream.rangeClosed(-altura, base)
                     .anyMatch(columna -> IntStream.range(0, altura + 1)
                             .filter(fila -> columna + fila >= 0 && columna + fila < base)
@@ -202,7 +215,6 @@ public class Linea {
 //            }
 //        }
 //        return false;
-
             return IntStream.rangeClosed(base, -altura)
                     .anyMatch(columna -> IntStream.rangeClosed(0, altura)
                             .filter(fila -> columna + (altura - fila) >= 0 && columna + (altura - fila) < base)

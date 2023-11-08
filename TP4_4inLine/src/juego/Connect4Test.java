@@ -64,7 +64,7 @@ public class Connect4Test {
 
     @Test public void testAzulNoPuedeEmpezar() {
         Linea game = new Linea(2, 2, 'A');
-        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
+        assertEquals(Turnos.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
         assertNotEquals(TurnoAzul.class, game.getTurno().getClass());
         assertEquals(TurnoRojo.class, game.getTurno().getClass());
     }
@@ -73,7 +73,7 @@ public class Connect4Test {
         Linea game = new Linea(2, 2, 'A');
 
         game.playRedAt(1);
-        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
+        assertEquals(Turnos.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
         assertNotEquals(TurnoRojo.class, game.getTurno().getClass());
         assertEquals(TurnoAzul.class, game.getTurno().getClass());
     }
@@ -84,9 +84,9 @@ public class Connect4Test {
 
         game.playRedAt(1);
         game.playBlueAt(1);
-        assertEquals(Linea.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(2)).getMessage());
+        assertEquals(Turnos.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(2)).getMessage());
         assertEquals(TurnoRojo.class, game.getTurno().getClass());
-        assertNotEquals(TurnoRojo.class, game.getTurno().getClass());
+        assertNotEquals(TurnoAzul.class, game.getTurno().getClass());
     }
     @Test
     public void testNoPuedoPonerFichaEnColumnaLLena() {
