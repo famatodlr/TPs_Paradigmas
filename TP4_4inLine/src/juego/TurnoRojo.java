@@ -7,7 +7,6 @@ public class TurnoRojo extends Turnos {
 
     public void chequeoTurno(Turnos turno) {
         turno.TurnoEsRojo();
-
     }
 
     protected void TurnoEsRojo() {

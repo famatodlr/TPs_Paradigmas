@@ -247,7 +247,8 @@ public class Connect4Test {
 //        assertEquals("Rojo", game.getGanador());
     }
 
-    @Test public void testAzulGanaDiagonalEnModoB(){
+    @Test
+    public void testAzulGanaDiagonalEnModoB() {
         Linea game = new Linea(4, 4, 'B');
 
         game.playRedAt(2);
@@ -263,14 +264,15 @@ public class Connect4Test {
         game.playRedAt(2);
         game.playBlueAt(4);
 
-        assertEquals(  "| | | |0|\n" +
-                                "| |X|0|X|\n" +
-                                "|X|0|X|0|\n" +
-                                "|0|X|0|X|", game.show());
+        assertEquals("| | | |0|\n" +
+                "| |X|0|X|\n" +
+                "|X|0|X|0|\n" +
+                "|0|X|0|X|", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
     }
+
     @Test
     public void testRojoGanaDiagonalInvertidoEnModoB() {
         Linea game = new Linea(4, 4, 'B');
@@ -296,7 +298,8 @@ public class Connect4Test {
         assertEquals("Rojo", game.getGanador());
     }
 
-    @Test public void testAzulGanaDiagonalInvertidoEnModoB(){
+    @Test
+    public void testAzulGanaDiagonalInvertidoEnModoB() {
         Linea game = new Linea(4, 4, 'B');
 
         game.playRedAt(1);
@@ -312,15 +315,16 @@ public class Connect4Test {
         game.playRedAt(2);
         game.playBlueAt(4);
 
-        assertEquals(  "|0|X| | |\n" +
-                                "|X|0|X| |\n" +
-                                "|0|X|0| |\n" +
-                                "|X|0|X|0|", game.show());
+        assertEquals("|0|X| | |\n" +
+                "|X|0|X| |\n" +
+                "|0|X|0| |\n" +
+                "|X|0|X|0|", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
 
     }
+
     @Test
     public void testModalidadCEnVertical() {
         Linea game = new Linea(4, 4, 'C');
@@ -424,7 +428,8 @@ public class Connect4Test {
     }
 
     //agrega los tests que faltan
-    @Test public void testNoSeGanaSiHay4IgualesPeroNoEnLinea(){
+    @Test
+    public void testNoSeGanaSiHay4IgualesPeroNoEnLinea() {
         Linea game = new Linea(6, 7, 'A');
         game.playRedAt(1);
         game.playBlueAt(2);
@@ -435,18 +440,16 @@ public class Connect4Test {
         game.playRedAt(5);
         game.playBlueAt(5);
 
-        assertEquals(  "| | | | | | |\n" +
-                                "| | | | | | |\n" +
-                                "| | | | | | |\n" +
-                                "| | | | | | |\n" +
-                                "| | | | | | |\n" +
-                                "| | |0|0|0| |\n" +
-                                "|X|0|X|X|X| |", game.show());
+        assertEquals("| | | | | | |\n" +
+                "| | | | | | |\n" +
+                "| | | | | | |\n" +
+                "| | | | | | |\n" +
+                "| | | | | | |\n" +
+                "| | |0|0|0| |\n" +
+                "|X|0|X|X|X| |", game.show());
 
         assertEquals("Nadie", game.getGanador());
         assertFalse(game.finished());
     }
-
-
 
 }
