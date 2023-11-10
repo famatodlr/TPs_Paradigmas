@@ -60,7 +60,7 @@ public class Connect4Test {
         game.playRedAt(1);
         game.playBlueAt(2);
 
-        assertEquals("|X|0|", game.show());
+        assertEquals("|X|0|\nEmpate", game.show());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class Connect4Test {
         game.playBlueAt(2);
 
         assertEquals("|0|0|\n" +
-                "|X|X|", game.show());
+                "|X|X|\nEmpate", game.show());
 
         assertTrue(game.finished());
     }
@@ -148,7 +148,7 @@ public class Connect4Test {
         assertEquals("| | | | |\n" +
                 "| | | | |\n" +
                 "|0|0|0| |\n" +
-                "|X|X|X|X|", game.show());
+                "|X|X|X|X|\nRojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -173,7 +173,7 @@ public class Connect4Test {
         assertEquals("| | | | |\n" +
                 "|X|X| | |\n" +
                 "|0|0|0|0|\n" +
-                "|X|X|X|0|", game.show());
+                "|X|X|X|0|\nAzul", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
@@ -194,7 +194,7 @@ public class Connect4Test {
         assertEquals("|X| | | |\n" +
                 "|X|0| | |\n" +
                 "|X|0| | |\n" +
-                "|X|0| | |", game.show());
+                "|X|0| | |\nRojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -215,7 +215,7 @@ public class Connect4Test {
         assertEquals("| |0| | |\n" +
                 "|X|0| | |\n" +
                 "|X|0| | |\n" +
-                "|X|0| |X|", game.show());
+                "|X|0| |X|\nAzul", game.show());
 
         assertTrue(game.finished());
     }
@@ -241,10 +241,10 @@ public class Connect4Test {
         assertEquals("| | |0|X|\n" +
                 "| | |X|0|\n" +
                 "| |X|0|X|\n" +
-                "|X|0|X|0|", game.show());
+                "|X|0|X|0|\nRojo", game.show());
 
         assertTrue(game.finished());
-//        assertEquals("Rojo", game.getGanador());
+        assertEquals("Rojo", game.getGanador());
     }
 
     @Test
@@ -267,7 +267,7 @@ public class Connect4Test {
         assertEquals("| | | |0|\n" +
                 "| |X|0|X|\n" +
                 "|X|0|X|0|\n" +
-                "|0|X|0|X|", game.show());
+                "|0|X|0|X|\nAzul", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
@@ -292,7 +292,7 @@ public class Connect4Test {
         assertEquals("|X|0| | |\n" +
                 "|0|X| | |\n" +
                 "|X|0|X| |\n" +
-                "|0|X|0|X|", game.show());
+                "|0|X|0|X|\nRojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -318,7 +318,7 @@ public class Connect4Test {
         assertEquals("|0|X| | |\n" +
                 "|X|0|X| |\n" +
                 "|0|X|0| |\n" +
-                "|X|0|X|0|", game.show());
+                "|X|0|X|0|\nAzul", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
@@ -340,7 +340,7 @@ public class Connect4Test {
         assertEquals("|X| | | |\n" +
                 "|X|0| | |\n" +
                 "|X|0| | |\n" +
-                "|X|0| | |", game.show());
+                "|X|0| | |\nRojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -360,7 +360,7 @@ public class Connect4Test {
         assertEquals("| | | | |\n" +
                 "| | | | |\n" +
                 "|0|0|0| |\n" +
-                "|X|X|X|X|", game.show());
+                "|X|X|X|X|\nRojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -386,7 +386,7 @@ public class Connect4Test {
         assertEquals("| | |0|X|\n" +
                 "| | |X|0|\n" +
                 "| |X|0|X|\n" +
-                "|X|0|X|0|", game.show());
+                "|X|0|X|0|\nRojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -411,7 +411,7 @@ public class Connect4Test {
         assertEquals("|X|0| | |\n" +
                 "|0|X| | |\n" +
                 "|X|0|X| |\n" +
-                "|0|X|0|X|", game.show());
+                "|0|X|0|X|\nRojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -427,7 +427,6 @@ public class Connect4Test {
         assertTrue(game.finished());
     }
 
-    //agrega los tests que faltan
     @Test
     public void testNoSeGanaSiHay4IgualesPeroNoEnLinea() {
         Linea game = new Linea(6, 7, 'A');
@@ -448,7 +447,7 @@ public class Connect4Test {
                 "| | |0|0|0| |\n" +
                 "|X|0|X|X|X| |", game.show());
 
-        assertEquals("Nadie", game.getGanador());
+        assertEquals("", game.getGanador());
         assertFalse(game.finished());
     }
 

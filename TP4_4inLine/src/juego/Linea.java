@@ -18,7 +18,7 @@ public class Linea {
         this.altura = altura;
         this.jugabilidad =  chooseMode( jugabilidad );
         this.turno = new TurnoRojo();
-        this.ganador = "Nadie";
+        this.ganador = "";
 
         tablero = new ArrayList<>();
         IntStream.range(0, base).forEach(j -> tablero.add(new ArrayList<>()));
@@ -41,6 +41,10 @@ public class Linea {
             mostrar.append("\n");
         });
         mostrar.delete(mostrar.length() - 1, mostrar.length());
+        if (finished) {
+            mostrar.append("\n");
+            mostrar.append(ganador);
+        }
         return mostrar.toString();
 
     }

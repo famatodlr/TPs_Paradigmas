@@ -9,5 +9,5 @@ public abstract class ModosDeJuego {
 
     public static ArrayList<ModosDeJuego> gameModes = new ArrayList<>(Arrays.asList(new OptionA(), new OptionB(), new OptionC()));
 
-    public abstract boolean isWinner( Linea juego , char player);
+    public abstract boolean isWinner(Linea juego, char player);
 }
