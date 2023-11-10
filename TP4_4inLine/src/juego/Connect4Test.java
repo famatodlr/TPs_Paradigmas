@@ -8,7 +8,7 @@ public class Connect4Test {
 
     @Test
     public void testCreaElShow() {
-        Linea game = new Linea(1, 1, 'A');
+        Linea game = tablero1x1();
 
         assertEquals("| |", game.show());
     }
@@ -30,7 +30,7 @@ public class Connect4Test {
 
     @Test
     public void testPuedeRecibirShowsGrandes() {
-        Linea game = new Linea(6, 7, 'A');
+        Linea game = tablero6x7();
         assertEquals("| | | | | | |\n" +
                 "| | | | | | |\n" +
                 "| | | | | | |\n" +
@@ -42,7 +42,7 @@ public class Connect4Test {
 
     @Test
     public void testPoneFichaCorrectamente() {
-        Linea game = new Linea(1, 1, 'A');
+        Linea game = tablero1x1();
         game.playRedAt(1);
 
         assertEquals(game.buscarCoordenada(0, 0), 'X');
@@ -50,28 +50,28 @@ public class Connect4Test {
 
     @Test
     public void testNoPuedoPonerFichasFueraDelTablero() {
-        Linea game = new Linea(1, 1, 'A');
+        Linea game = tablero1x1();
         assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(2)).getMessage());
     }
 
     @Test
     public void testPuedoPonerFichasEnCualquierColumna() {
-        Linea game = new Linea(2, 1, 'A');
+        Linea game = tablero2x2();
         game.playRedAt(1);
         game.playBlueAt(2);
 
-        assertEquals("|X|0|\nEmpate", game.show());
+        assertEquals("| | |\n|X|0|", game.show());
     }
 
     @Test
     public void testNoPuedoPonerFichasEnColumnaNegativa() {
-        Linea game = new Linea(2, 1, 'A');
+        Linea game = tablero2x2();
         assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playRedAt(-1)).getMessage());
     }
 
     @Test
     public void testAzulNoPuedeEmpezar() {
-        Linea game = new Linea(2, 2, 'A');
+        Linea game = tablero2x2();
         assertEquals(Turnos.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
         assertNotEquals(TurnoAzul.class, game.getTurno().getClass());
         assertEquals(TurnoRojo.class, game.getTurno().getClass());
@@ -79,7 +79,7 @@ public class Connect4Test {
 
     @Test
     public void testRojoNoJuegaDosVeces() {
-        Linea game = new Linea(2, 2, 'A');
+        Linea game = tablero2x2();
 
         game.playRedAt(1);
         assertEquals(Turnos.NO_ES_TU_TURNO, assertThrows(RuntimeException.class, () -> game.playRedAt(1)).getMessage());
@@ -89,7 +89,7 @@ public class Connect4Test {
 
     @Test
     public void testAzulNoJuegaDosVeces() {
-        Linea game = new Linea(2, 2, 'A');
+        Linea game = tablero2x2();
 
         game.playRedAt(1);
         game.playBlueAt(1);
@@ -100,7 +100,7 @@ public class Connect4Test {
 
     @Test
     public void testNoPuedoPonerFichaEnColumnaLLena() {
-        Linea game = new Linea(2, 2, 'A');
+        Linea game = tablero2x2();
         game.playRedAt(1);
         game.playBlueAt(1);
 
@@ -122,21 +122,21 @@ public class Connect4Test {
 
     @Test
     public void testJuegoTerminaConElTableroLLeno() {
-        Linea game = new Linea(2, 2, 'A');
+        Linea game = tablero2x2();
         game.playRedAt(1);
         game.playBlueAt(1);
         game.playRedAt(2);
         game.playBlueAt(2);
 
         assertEquals("|0|0|\n" +
-                "|X|X|\nEmpate", game.show());
+                "|X|X|\nEl juego termino. El ganador es: Empate", game.show());
 
         assertTrue(game.finished());
     }
 
     @Test
     public void testRojoGanaHorizontalEnModoA() {
-        Linea game = new Linea(4, 4, 'A');
+        Linea game = tablero4x4('A');
         game.playRedAt(1);
         game.playBlueAt(1);
         game.playRedAt(2);
@@ -148,7 +148,7 @@ public class Connect4Test {
         assertEquals("| | | | |\n" +
                 "| | | | |\n" +
                 "|0|0|0| |\n" +
-                "|X|X|X|X|\nRojo", game.show());
+                "|X|X|X|X|\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -156,7 +156,7 @@ public class Connect4Test {
 
     @Test
     public void testAzulGanaHorizontalEnModoA() {
-        Linea game = new Linea(4, 4, 'A');
+        Linea game = tablero4x4('A');
         game.playRedAt(1);
         game.playBlueAt(1);
         game.playRedAt(1);
@@ -173,7 +173,7 @@ public class Connect4Test {
         assertEquals("| | | | |\n" +
                 "|X|X| | |\n" +
                 "|0|0|0|0|\n" +
-                "|X|X|X|0|\nAzul", game.show());
+                "|X|X|X|0|\nEl juego termino. El ganador es: Azul", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
@@ -181,7 +181,7 @@ public class Connect4Test {
 
     @Test
     public void testRojoGanaVerticalEnModoA() {
-        Linea game = new Linea(4, 4, 'A');
+        Linea game = tablero4x4('A');
         game.playRedAt(1);
         game.playBlueAt(2);
         game.playRedAt(1);
@@ -194,7 +194,7 @@ public class Connect4Test {
         assertEquals("|X| | | |\n" +
                 "|X|0| | |\n" +
                 "|X|0| | |\n" +
-                "|X|0| | |\nRojo", game.show());
+                "|X|0| | |\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -202,7 +202,7 @@ public class Connect4Test {
 
     @Test
     public void testAzulGanaVerticalEnModoA() {
-        Linea game = new Linea(4, 4, 'A');
+        Linea game = tablero4x4('A');
         game.playRedAt(1);
         game.playBlueAt(2);
         game.playRedAt(1);
@@ -215,7 +215,7 @@ public class Connect4Test {
         assertEquals("| |0| | |\n" +
                 "|X|0| | |\n" +
                 "|X|0| | |\n" +
-                "|X|0| |X|\nAzul", game.show());
+                "|X|0| |X|\nEl juego termino. El ganador es: Azul", game.show());
 
         assertTrue(game.finished());
     }
@@ -223,8 +223,7 @@ public class Connect4Test {
 
     @Test
     public void testRojoGanaDiagonalEnModoB() {
-        Linea game = new Linea(4, 4, 'B');
-
+        Linea game = tablero4x4('B');
 
         game.playRedAt(1);
         game.playBlueAt(2);
@@ -241,7 +240,7 @@ public class Connect4Test {
         assertEquals("| | |0|X|\n" +
                 "| | |X|0|\n" +
                 "| |X|0|X|\n" +
-                "|X|0|X|0|\nRojo", game.show());
+                "|X|0|X|0|\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -249,7 +248,7 @@ public class Connect4Test {
 
     @Test
     public void testAzulGanaDiagonalEnModoB() {
-        Linea game = new Linea(4, 4, 'B');
+        Linea game = tablero4x4('B');
 
         game.playRedAt(2);
         game.playBlueAt(1);
@@ -267,7 +266,7 @@ public class Connect4Test {
         assertEquals("| | | |0|\n" +
                 "| |X|0|X|\n" +
                 "|X|0|X|0|\n" +
-                "|0|X|0|X|\nAzul", game.show());
+                "|0|X|0|X|\nEl juego termino. El ganador es: Azul", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
@@ -275,7 +274,7 @@ public class Connect4Test {
 
     @Test
     public void testRojoGanaDiagonalInvertidoEnModoB() {
-        Linea game = new Linea(4, 4, 'B');
+        Linea game = tablero4x4('B');
 
         game.playRedAt(4);
         game.playBlueAt(3);
@@ -292,7 +291,7 @@ public class Connect4Test {
         assertEquals("|X|0| | |\n" +
                 "|0|X| | |\n" +
                 "|X|0|X| |\n" +
-                "|0|X|0|X|\nRojo", game.show());
+                "|0|X|0|X|\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -300,7 +299,7 @@ public class Connect4Test {
 
     @Test
     public void testAzulGanaDiagonalInvertidoEnModoB() {
-        Linea game = new Linea(4, 4, 'B');
+        Linea game = tablero4x4('B');
 
         game.playRedAt(1);
         game.playBlueAt(1);
@@ -318,7 +317,7 @@ public class Connect4Test {
         assertEquals("|0|X| | |\n" +
                 "|X|0|X| |\n" +
                 "|0|X|0| |\n" +
-                "|X|0|X|0|\nAzul", game.show());
+                "|X|0|X|0|\nEl juego termino. El ganador es: Azul", game.show());
 
         assertTrue(game.finished());
         assertEquals("Azul", game.getGanador());
@@ -327,7 +326,7 @@ public class Connect4Test {
 
     @Test
     public void testModalidadCEnVertical() {
-        Linea game = new Linea(4, 4, 'C');
+        Linea game = tablero4x4('C');
         game.playRedAt(1);
         game.playBlueAt(2);
         game.playRedAt(1);
@@ -340,7 +339,7 @@ public class Connect4Test {
         assertEquals("|X| | | |\n" +
                 "|X|0| | |\n" +
                 "|X|0| | |\n" +
-                "|X|0| | |\nRojo", game.show());
+                "|X|0| | |\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -348,7 +347,7 @@ public class Connect4Test {
 
     @Test
     public void testModalidadCEnHorizontal() {
-        Linea game = new Linea(4, 4, 'C');
+        Linea game = tablero4x4('C');
         game.playRedAt(1);
         game.playBlueAt(1);
         game.playRedAt(2);
@@ -360,7 +359,7 @@ public class Connect4Test {
         assertEquals("| | | | |\n" +
                 "| | | | |\n" +
                 "|0|0|0| |\n" +
-                "|X|X|X|X|\nRojo", game.show());
+                "|X|X|X|X|\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertEquals("Rojo", game.getGanador());
         assertTrue(game.finished());
@@ -368,7 +367,7 @@ public class Connect4Test {
 
     @Test
     public void testModalidadCEnDiagonal() {
-        Linea game = new Linea(4, 4, 'C');
+        Linea game = tablero4x4('C');
 
 
         game.playRedAt(1);
@@ -386,7 +385,7 @@ public class Connect4Test {
         assertEquals("| | |0|X|\n" +
                 "| | |X|0|\n" +
                 "| |X|0|X|\n" +
-                "|X|0|X|0|\nRojo", game.show());
+                "|X|0|X|0|\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -394,7 +393,7 @@ public class Connect4Test {
 
     @Test
     public void testModalidadCEnDiagonalInvertido() {
-        Linea game = new Linea(4, 4, 'C');
+        Linea game = tablero4x4('C');
 
         game.playRedAt(4);
         game.playBlueAt(3);
@@ -411,7 +410,7 @@ public class Connect4Test {
         assertEquals("|X|0| | |\n" +
                 "|0|X| | |\n" +
                 "|X|0|X| |\n" +
-                "|0|X|0|X|\nRojo", game.show());
+                "|0|X|0|X|\nEl juego termino. El ganador es: Rojo", game.show());
 
         assertTrue(game.finished());
         assertEquals("Rojo", game.getGanador());
@@ -419,7 +418,7 @@ public class Connect4Test {
 
     @Test
     public void testNoAceptaJugdasCuandoElJuegoTermina() {
-        Linea game = new Linea(1, 1, 'A');
+        Linea game = tablero1x1();
         game.playRedAt(1);
         assertTrue(game.finished());
         assertEquals(Linea.JUGADA_NO_VALIDA, assertThrows(RuntimeException.class, () -> game.playBlueAt(1)).getMessage());
@@ -429,7 +428,7 @@ public class Connect4Test {
 
     @Test
     public void testNoSeGanaSiHay4IgualesPeroNoEnLinea() {
-        Linea game = new Linea(6, 7, 'A');
+        Linea game = tablero6x7();
         game.playRedAt(1);
         game.playBlueAt(2);
         game.playRedAt(3);
@@ -451,4 +450,23 @@ public class Connect4Test {
         assertFalse(game.finished());
     }
 
+    @Test public void testBaseYAlturaDebenSerPositivos(){
+        assertEquals(Linea.BASE_Y_ALTURA_DEBEN_SER_POSITIVOS, assertThrows(RuntimeException.class, () -> new Linea(-1, 1, 'A')).getMessage());
+    }
+
+    private static Linea tablero1x1() {
+        return new Linea(1, 1, 'A');
+    }
+
+    private static Linea tablero4x4( char jugabilidad) {
+        return new Linea(4, 4, jugabilidad);
+    }
+
+    private static Linea tablero6x7() {
+        return new Linea(6, 7, 'A');
+    }
+
+    private static Linea tablero2x2() {
+        return new Linea(2, 2, 'A');
+    }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 public class Linea {
+    public static String BASE_Y_ALTURA_DEBEN_SER_POSITIVOS = "Base y altura deben ser positivos";
     public static String JUGADA_NO_VALIDA = "Jugada no valida";
     private ArrayList<ArrayList<Character>> tablero;
     private int base;
@@ -20,12 +21,19 @@ public class Linea {
         this.turno = new TurnoRojo();
         this.ganador = "";
 
+        if (base < 0 || altura < 0) {
+            throw new RuntimeException(BASE_Y_ALTURA_DEBEN_SER_POSITIVOS);
+        }
+
         tablero = new ArrayList<>();
         IntStream.range(0, base).forEach(j -> tablero.add(new ArrayList<>()));
     }
 
     public ModosDeJuego chooseMode(char jugabilidad) {
         int index = ModosDeJuego.gameModesChars.indexOf(jugabilidad);
+        if (index == -1){
+            throw new RuntimeException("Modo de juego no valido");
+        }
         return ModosDeJuego.gameModes.get(index);
 
     }
@@ -42,7 +50,7 @@ public class Linea {
         });
         mostrar.delete(mostrar.length() - 1, mostrar.length());
         if (finished) {
-            mostrar.append("\n");
+            mostrar.append("\nEl juego termino. El ganador es: ");
             mostrar.append(ganador);
         }
         return mostrar.toString();
