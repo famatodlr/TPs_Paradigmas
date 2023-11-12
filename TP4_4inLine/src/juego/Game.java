@@ -18,7 +18,6 @@ public class Game {
                 System.out.println( game.show() );
             }
         }
-
     }
 
     private static int promptAsInt( String message ) {

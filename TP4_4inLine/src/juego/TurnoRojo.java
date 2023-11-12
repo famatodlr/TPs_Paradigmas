@@ -9,9 +9,7 @@ public class TurnoRojo extends Turnos {
         turno.TurnoEsRojo();
     }
 
-    protected void TurnoEsRojo() {
-        return;
-    }
+    protected void TurnoEsRojo() {}
 
     protected void TurnoEsAzul() {
         throw new RuntimeException(Turnos.NO_ES_TU_TURNO);
