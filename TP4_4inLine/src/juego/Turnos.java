@@ -1,5 +1,4 @@
 package juego;
-
 public abstract class Turnos {
     public static String NO_ES_TU_TURNO = "No es tu turno";
     public abstract Turnos cambiarTurno();
